@@ -54,13 +54,13 @@
                 </tbody>
             </table>
             <div class="pagination">
-                <c:if test="${pagination.lastPage > 2}">
+                <c:if test="${pagination.lastPage > 1}">
                     <a class="pageLink" href="${pageContext.request.contextPath}/matches?page=1${pathName}"> < </a>
-                    <c:if test="${pagination.currentPageNumber != 2 || pagination.lastPage > 2}">
+                    <c:if test="${(pagination.currentPageNumber != 1&&pagination.lastPage==2) || pagination.lastPage > 2}">
                         <a class="${pagination.isPreviousSelected() ? 'selected' : ''}" href="${pageContext.request.contextPath}/matches?page=${pagination.previousPage}${pathName}">${pagination.previousPageView}</a>
                     </c:if>
                     <a class="${pagination.isCurrentSelected() ? 'selected' : ''}" href="${pageContext.request.contextPath}/matches?page=${pagination.currentPage}${pathName}">${pagination.currentPageView}</a>
-                    <c:if test="${pagination.currentPageNumber != pagination.previousPageView || pagination.lastPage > 2}">
+                    <c:if test="${(pagination.currentPageNumber == 1&&pagination.lastPage==2) || pagination.lastPage > 2}">
                         <a class="${pagination.isNextSelected() ? 'selected' : ''}" href="${pageContext.request.contextPath}/matches?page=${pagination.nextPage}${pathName}">${pagination.nextPageView}</a>
                     </c:if>
                     <a class="pageLink" href="${pageContext.request.contextPath}/matches?page=${pagination.lastPage}${pathName}"> > </a>

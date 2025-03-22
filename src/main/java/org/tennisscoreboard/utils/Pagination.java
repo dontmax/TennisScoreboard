@@ -59,6 +59,17 @@ public class Pagination {
             currentPageView=currentPageNumber-1;
             nextPageView=currentPageNumber;
         }
+        if(lastPage==2&&currentPageNumber==1){
+            currentPage=currentPageNumber;
+            nextPage=currentPageNumber+1;
+            currentPageView=currentPageNumber;
+            nextPageView=currentPageNumber+1;
+        } else if(lastPage==2&&currentPageNumber==2){
+            previousPage=currentPageNumber-1;
+            currentPage=currentPageNumber;
+            previousPageView=currentPageNumber-1;
+            currentPageView=currentPageNumber;
+        }
     }
 
 

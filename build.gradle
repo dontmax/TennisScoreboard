@@ -1,6 +1,6 @@
 plugins {
     id 'java' // Ensure the Java plugin is applied
-    id 'wari'
+    id 'war'
 }
 
 ext {
@@ -12,8 +12,8 @@ repositories {
 }
 
 java {
-    sourceCompatibility = '23'
-    targetCompatibility = '23'
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
 }
 
 tasks.withType(JavaCompile).configureEach {
