@@ -28,12 +28,12 @@ public class MatchScoreServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UUID match_id = UUID.fromString(request.getParameter("uuid"));
+        String match_id = (request.getParameter("uuid"));
         CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
         redirect(request, response, match_id, currentMatch);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, UUID match_id, CurrentMatch currentMatch) throws IOException {
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String match_id, CurrentMatch currentMatch) throws IOException {
         request.setAttribute("currentMatch", currentMatch);
         request.setAttribute("uuid", match_id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/match-score.jsp");
@@ -45,7 +45,7 @@ public class MatchScoreServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UUID match_id = UUID.fromString(request.getParameter("uuid"));
+        String match_id = (request.getParameter("uuid"));
         CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
         if(currentMatch!= null) {
             matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);

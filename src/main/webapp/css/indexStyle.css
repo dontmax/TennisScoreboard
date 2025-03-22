@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image:  url("/images/pageBackground/start-bg.jpg"); /* Replace with your image URL */
+    background-image:  url("/images/pageBackground/start-bg.jpg");
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -10,7 +10,7 @@ body {
 
 }
 * {
-    box-sizing: border-box; /* Applies border-box model to all elements */
+    box-sizing: border-box;
 }
 
 .header{
@@ -105,11 +105,11 @@ h2 {
     min-width: 150px;
     text-align: center;
     text-decoration: none;
-    border: none; /* Remove border */
-    border-radius: 50px; /* Make the button edges rounded */
-    padding: 15px 10px; /* Adjust vertical and horizontal padding */
-    font-size: 20px; /* Text size */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    border: none;
+    border-radius: 50px;
+    padding: 15px 10px;
+    font-size: 20px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 

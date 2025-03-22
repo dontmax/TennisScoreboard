@@ -2,14 +2,14 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image:  url("/images/pageBackground/gray-bg.jpg"); /* Replace with your image URL */
+    background-image:  url("/images/pageBackground/gray-bg.jpg");
     background-size: cover;
     background-position: center;
     overflow: hidden;
     font-family: "Poppins", sans-serif;
 }
 * {
-    box-sizing: border-box; /* Applies border-box model to all elements */
+    box-sizing: border-box;
 }
 
 .header{
@@ -139,7 +139,7 @@ tbody td{
     text-decoration: none;
 }
 .pagination a.selected {
-    font-weight: bold; /* Make the selected page bold */
+    font-weight: bold;
 }
 @media (max-width: 600px) {
     .projectName {

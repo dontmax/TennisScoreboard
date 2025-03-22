@@ -63,7 +63,7 @@ public class NewMatchServlet extends HttpServlet {
             playerRepo.save(new Player(secondPlayerName));
             secondPlayer = playerRepo.getByName(secondPlayerName);
         }
-        UUID match_id = UUID.randomUUID();
+        String match_id = UUID.randomUUID().toString();
         CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
         CurrentMatchesService.add(match_id, currentMatch);
         response.sendRedirect("/match-score?uuid="+match_id);
