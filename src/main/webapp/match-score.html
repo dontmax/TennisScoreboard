@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/matchScoreStyle.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Tennis Scoreboard | Match Score</title>
+</head>
+    <body>
+    <div class="header">
+        <header class="tabProperties">
+            <p class="projectName">Tennis Scoreboard</p>
+            <nav class="navLinks">
+                <a class="navLink" href="/" target="_self">Home</a>
+                <a class="navLink" href="matches" target="_self">Matches</a>
+            </nav>
+        </header>
+    </div>
+    <div class="menu">
+        <main>
+            <div class="model">
+                <div class="modelContent">
+                    <h2 class="bordered-text">winner</h2>
+                    <p class="bordered-text">winner</p>
+                    <div class="modelLinkContainer">
+                        <a class="modelLink" href="/" target="_self">Home</a>
+                        <a class="modelLink" href="matches" target="_self">Matches</a>
+                    </div>
+                </div>
+            </div>
+            <h1><strong>Current match</strong></h1>
+            <figure class="imgBlock">
+                <img class="imgBallInWatter" src="images/mainPictures/ballInWatter.jpg" alt="2 Tennis rockets image">
+            </figure>
+            <section>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="tableText">Players</th>
+                    <th class="tableText">Sets</th>
+                    <th class="tableText">Games</th>
+                    <th class="tableText">Points</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="firstPlayer">
+                    <form action="/match-score?uuid=<%=match_id%>" method="POST">
+                        <td class="tableText">First Player</td>
+                        <td class="tableText">0</td>
+                        <td class="tableText">1</td>
+                        <td class="tableText">15</td>
+                        <input type="hidden" name="scoreWinnerId" value ="<%=currentMatch.getFirstPlayer().getId()%>">
+                        <td class="tableText"><input class="buttonScore" type="submit" value="Score"></td>
+                    </form>
+                </tr>
+                <tr class="secondPlayer">
+                    <form action="/match-score?uuid=<%=match_id%>" method="POST">
+                        <td class="tableText">Second Player</td>
+                        <td class="tableText">1</td>
+                        <td class="tableText">2</td>
+                        <td class="tableText">30</td>
+                        <input type="hidden" name="scoreWinnerId" value ="<%=currentMatch.getSecondPlayer().getId()%>">
+                        <td class="tableText"><input class="buttonScore" type="submit" value="Score"></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+            </section>
+        </main>
+    </div>
+        <div class="footer">
+            <footer>
+                    <p class="footerText">Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap</p>
+            </footer>
+        </div>
+    </body>
+</html>

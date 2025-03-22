@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image:  url("/images/pageBackground/sand-bg.jpg"); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+}
+* {
+    box-sizing: border-box; /* Applies border-box model to all elements */
+}
+
+.header{
+    margin: auto;
+    height: 50px;
+    border-bottom: 2px solid black;
+}
+
+footer {
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 35px;
+    border-top: 2px solid black;
+    align-items: center;
+}
+
+.tabProperties {
+    display: flex;
+    padding: 10px 35px;
+}
+
+.projectName {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    font-size: 24px;
+    margin:0;
+    padding-left: 30px;
+}
+
+.navLinks {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+    padding-right: 20px;
+
+}
+
+.navLink {
+    color: black;
+    font-size: 24px;
+    text-decoration: none;
+    margin-right: 10px;
+
+}
+
+h1 {
+    font-size: 40px;
+}
+
+.menu {
+    width:80%;
+    max-width: 1300px;
+    margin-top:20px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 20px 0;
+    min-height: calc(100vh - 120px);
+
+}
+.imgBlock {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    aspect-ratio: 25/10;
+}
+
+.imgNewMatch {
+    height: 100%;
+    width:100%;
+    border-radius: 50px;
+}
+
+.players {
+    font-size: 20px;
+}
+
+.nameForm {
+    width: 100%;
+}
+
+.exceptionContainer {
+    margin: 0;
+    height: 100px;
+    text-align: center;
+}
+
+.exceptionLabel {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    font-size: 18px;
+    line-height: 0.7;
+}
+.message {
+    text-align: center;
+    padding:10px 0;
+    width:70%;
+    margin:0 auto;
+    background: #dddddd;
+    border-radius: 20px;
+}
+
+.form {
+    text-align: center;
+    line-height: 0.5;
+}
+
+.nameTextLabel {
+    background-image: url("/images/buttons/btn-orange-send.jpg");
+    border-radius: 50px;
+    height: 40px;
+    width: 30%;
+    min-width: 200px;
+}
+
+.startButton {
+    background-image: url("/images/buttons/btn-orange-send.jpg");
+    border-radius: 20px;
+    height: 50px;
+    width: 30%;
+    min-width: 200px;
+    font-size: 20px;
+}
+
+@media (max-width: 600px) {
+    .projectName {
+        font-size: 22px;
+    }
+    .footer {
+        padding: 0;
+        line-height: 1;
+    }
+    .footerText {
+        font-size: 20px;
+    }
+}

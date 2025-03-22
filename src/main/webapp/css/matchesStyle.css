@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image:  url("/images/pageBackground/gray-bg.jpg"); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+}
+* {
+    box-sizing: border-box; /* Applies border-box model to all elements */
+}
+
+.header{
+    margin: auto;
+    height: 50px;
+    border-bottom: 2px solid gray;
+}
+
+footer {
+    color: black;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 35px;
+    border-top: 2px solid gray;
+    align-items: center;
+}
+
+
+.tabProperties {
+    display: flex;
+    padding: 10px 35px;
+}
+
+.projectName {
+    color: black;
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    font-size: 24px;
+    margin:0;
+    padding-left: 30px;
+}
+
+.navLinks {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.navLink {
+    color: black;
+    font-size: 24px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+h1 {
+    color: black;
+    font-size: 40px;
+}
+
+.menu {
+    width:80%;
+    max-width: 1300px;
+    margin-top:20px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 20px 0;
+    min-height: calc(100vh - 120px);
+}
+
+.tableSet {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    margin-bottom: 40px;
+}
+.textLabel {
+    display: inline-block;
+    width:70%;
+    text-align: left;
+}
+
+.submitContainer {
+    display: inline-block;
+    width:30%;
+    text-align: right;
+}
+
+.text {
+    height: 40px;
+    width:90%;
+    border-radius: 35px;
+}
+
+.submit {
+    height: 40px;
+    width: 90%;
+    border-radius: 35px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #000000;
+    border:1px solid #dddddd;
+    aspect-ratio: 10/3;
+    border-radius: 50px;
+    text-align: center;
+}
+td {
+    font-size: 20px;
+    width: 30%;
+ }
+
+thead {
+    background-color: gray;
+}
+tbody td{
+    padding: 50px 0;
+    border-top: 1px solid #dddddd;
+}
+
+.pagination {
+    margin-top:40px;
+    font-size: 25px;
+}
+.pagination a{
+    color:black;
+    margin-left:10px;
+    margin-right:10px;
+    text-decoration: none;
+}
+.pagination a.selected {
+    font-weight: bold; /* Make the selected page bold */
+}
+@media (max-width: 600px) {
+    .projectName {
+        font-size: 22px;
+    }
+    .footer {
+        padding: 0;
+        line-height: 1;
+    }
+    .footerText {
+        font-size: 20px;
+    }
+}
+

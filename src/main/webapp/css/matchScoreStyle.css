@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image:  url("/images/pageBackground/dark-bg.jpg"); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+}
+* {
+    box-sizing: border-box; /* Applies border-box model to all elements */
+}
+
+.header{
+    margin: auto;
+    height: 50px;
+    border-bottom: 2px solid gray;
+}
+
+footer {
+    font-size: 24px;
+    color: gray;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 35px;
+    border-top: 2px solid gray;
+    align-items: center;
+}
+
+
+.tabProperties {
+    display: flex;
+    padding: 10px 35px;
+}
+
+.projectName {
+    color: gray;
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    font-size: 24px;
+    margin:0;
+    padding-left: 30px;
+}
+
+.navLinks {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.navLink {
+    color: gray;
+    font-size: 24px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+h1 {
+    color: gray;
+    font-size: 40px;
+}
+
+.menu {
+    width:80%;
+    max-width: 1300px;
+    margin-top:20px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 20px 0;
+    min-height: calc(100vh - 120px);
+}
+
+.imgBlock {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    aspect-ratio: 10/3.8;
+}
+
+.imgBallInWatter {
+    height: 100%;
+    width:100%;
+    border-radius: 50px;
+}
+section{
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    margin-top: 35px;
+}
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #000000;
+    border:1px solid #dddddd;
+    aspect-ratio: 10/3;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.buttonScore {
+    font-size: 20px;
+    color: #000000;
+    background-color: gray;
+    border-radius: 30px;
+    height: 40px;
+    min-width: 100px;
+    cursor: pointer;
+}
+tbody {
+    font-size: 35px;
+}
+
+tr {
+    border-top: 1px solid #dddddd;
+}
+
+th{
+    font-size: 16px;
+    padding: 5px;
+}
+
+ td {
+    text-align: center;
+     font-family: "Roboto Mono", monospace;
+}
+
+@media (max-width: 600px) {
+    .projectName {
+        font-size: 22px;
+    }
+    .footer {
+        padding: 0;
+        line-height: 1;
+    }
+    .footerText {
+        font-size: 20px;
+    }
+}
+
+.model {
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */ /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+}
+
+.modelContent {
+
+    color:gray;
+    background-image: url("/images/notificationLabels/msg-bg.jpg");
+    margin: 25% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+.modelContent p {
+    font-size: 40px;
+    margin:0;
+}
+
+.bordered-text {
+    font-size: 20px;
+    color: gray; /* Text color */
+    text-shadow:
+            -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black; /* Border color */
+}
+
+.modelLinkContainer {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.modelLink {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    color: gray;
+    text-shadow:
+            -1px -1px 0 #ff0000,
+            1px -1px 0 #ff0000,
+            -1px 1px 0 #ff0000,
+            1px 1px 0 #ff0000; /* Border color */
+
+}
