@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image:  url("/images/pageBackground/start-bg.jpg");
+    background-color: coral;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -16,7 +16,7 @@ body {
 .header{
     margin: auto;
     height: 50px;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid black;
 }
 
 footer {
@@ -25,7 +25,7 @@ footer {
     justify-content: space-between;
     height: 50px;
     padding: 0 35px;
-    border-top: 2px solid gray;
+    border-top: 2px solid black;
     align-items: center;
 }
 

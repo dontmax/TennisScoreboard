@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image:  url("/images/pageBackground/gray-bg.jpg");
+    background-color: black;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -15,17 +15,17 @@ body {
 .header{
     margin: auto;
     height: 50px;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid saddlebrown;
 }
 
 footer {
-    color: black;
+    color: saddlebrown;
     font-size: 24px;
     display: flex;
     justify-content: space-between;
     height: 50px;
     padding: 0 35px;
-    border-top: 2px solid gray;
+    border-top: 2px solid saddlebrown;
     align-items: center;
 }
 
@@ -36,7 +36,7 @@ footer {
 }
 
 .projectName {
-    color: black;
+    color: saddlebrown;
     display: inline-block;
     width: 50%;
     text-align: left;
@@ -53,14 +53,14 @@ footer {
 }
 
 .navLink {
-    color: black;
+    color: saddlebrown;
     font-size: 24px;
     text-decoration: none;
     margin-right: 10px;
 }
 
 h1 {
-    color: black;
+    color: saddlebrown;
     font-size: 40px;
 }
 
@@ -95,12 +95,19 @@ h1 {
 }
 
 .text {
+    border-color: saddlebrown;
+    color: saddlebrown;
+    background-color: wheat;
     height: 40px;
     width:90%;
     border-radius: 35px;
 }
+.text::placeholder {
+    color: black;
+}
 
 .submit {
+    background-color: burlywood;
     height: 40px;
     width: 90%;
     border-radius: 35px;
@@ -110,7 +117,7 @@ h1 {
     border-collapse: collapse;
     width: 100%;
     color: #000000;
-    border:1px solid #dddddd;
+    border:1px solid saddlebrown;
     aspect-ratio: 10/3;
     border-radius: 50px;
     text-align: center;
@@ -121,11 +128,14 @@ td {
  }
 
 thead {
-    background-color: gray;
+    background-color: burlywood;
+}
+tbody {
+    background-color: wheat;
 }
 tbody td{
     padding: 50px 0;
-    border-top: 1px solid #dddddd;
+    border-top: 1px solid saddlebrown;
 }
 
 .pagination {
@@ -133,7 +143,7 @@ tbody td{
     font-size: 25px;
 }
 .pagination a{
-    color:black;
+    color:saddlebrown;
     margin-left:10px;
     margin-right:10px;
     text-decoration: none;

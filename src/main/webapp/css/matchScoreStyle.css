@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image:  url("/images/pageBackground/dark-bg.jpg");
+    background-color: #000000;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -81,9 +81,10 @@ section{
     margin-top: 35px;
 }
 .table {
+    background-color: gray;
     border-collapse: collapse;
     width: 100%;
-    color: #000000;
+    color: black;
     border:1px solid #dddddd;
     aspect-ratio: 10/3;
     border-radius: 50px;
