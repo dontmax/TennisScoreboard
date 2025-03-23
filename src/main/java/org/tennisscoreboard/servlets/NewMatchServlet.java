@@ -30,22 +30,24 @@ public class NewMatchServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String firstPlayerName = request.getParameter("firstPlayerName");
-        String secondPlayerName = request.getParameter("secondPlayerName");
-        String errorMessage = " Player name must begin with uppercase letter, max length: 25 symbols, not \"";
+        String firstPlayerName = request.getParameter("firstPlayerName").trim();
+        String secondPlayerName = request.getParameter("secondPlayerName").trim();
+        boolean validation=true;
+        String ERROR_MESSAGE = " Player name must begin with uppercase letter, max length: 25 symbols, not \"";
         if(!Validation.isName(firstPlayerName)){
-            errorMessage = "First"+errorMessage+firstPlayerName+"\"";
-            request.setAttribute("message", errorMessage);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-match.jsp");
-            try {
-                requestDispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
+            ERROR_MESSAGE = "First"+ERROR_MESSAGE+firstPlayerName+"\"";
+            validation=false;
         }
         if(!Validation.isName(secondPlayerName)){
-            errorMessage = "Second"+errorMessage+secondPlayerName+"\"";
-            request.setAttribute("message", errorMessage);
+            ERROR_MESSAGE = "Second"+ERROR_MESSAGE+secondPlayerName+"\"";
+            validation=false;
+        }
+        if(Validation.areNamesSame(firstPlayerName, secondPlayerName)){
+            ERROR_MESSAGE="Names can't be the same";
+            validation=false;
+        }
+        if(!validation){
+            request.setAttribute("message", ERROR_MESSAGE);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-match.jsp");
             try {
                 requestDispatcher.forward(request, response);
@@ -53,6 +55,7 @@ public class NewMatchServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
+
         Player firstPlayer = playerRepo.getByName(firstPlayerName);
         Player secondPlayer = playerRepo.getByName(secondPlayerName);
         if(firstPlayer == null){
