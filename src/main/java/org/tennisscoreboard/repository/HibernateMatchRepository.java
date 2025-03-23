@@ -1,6 +1,5 @@
 package org.tennisscoreboard.repository;
 
-import org.hibernate.QueryException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.tennisscoreboard.models.Match;
@@ -83,11 +82,4 @@ public class HibernateMatchRepository {
         return matchCount;
     }
 
-    public void drop(){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
-            session.createQuery("delete from Match").executeUpdate();
-            session.getTransaction().commit();
-        }
-    }
 }

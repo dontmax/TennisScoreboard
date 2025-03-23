@@ -53,7 +53,4 @@ public class FinishedMatchesPersistenceService {
         return matchApiDtos;
     }
 
-    public void drop(){
-        matchRepository.drop();
-    }
 }

@@ -14,7 +14,6 @@ import org.tennisscoreboard.service.MatchScoreCalculationService;
 import org.tennisscoreboard.service.CurrentMatchesService;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet(name = "MatchScoreServlet", value = "/match-score")
 public class MatchScoreServlet extends HttpServlet {
@@ -56,7 +55,7 @@ public class MatchScoreServlet extends HttpServlet {
                         currentMatch.getSecondPlayer(),
                         currentMatch.getWinnerPlayer()));
                 request.setAttribute("winner", currentMatch.getWinnerPlayer().getName());
-                CurrentMatchesService.delete(match_id);
+                CurrentMatchesService.remove(match_id);
                 redirect(request, response, match_id, currentMatch);
             }
         }

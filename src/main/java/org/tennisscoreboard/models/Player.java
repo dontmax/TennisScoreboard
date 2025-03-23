@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="name", unique = true, nullable=false, length=50)
