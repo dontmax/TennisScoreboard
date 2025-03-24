@@ -23,7 +23,7 @@ public class HibernateMatchRepository {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query<Match> query = session.createQuery("FROM Match m " +
-                    "WHERE m.firstPlayer.name = :playerName OR m.secondPlayer.name = :playerName", Match.class);
+                    "WHERE m.firstPlayer.name = :playerName OR m.secondPlayer.name = :playerName order by m.id desc", Match.class);
             query.setParameter("playerName", playerName);
             int firstResult = pageNumber*5;
             query.setFirstResult(firstResult);
@@ -37,13 +37,11 @@ public class HibernateMatchRepository {
         return null;
     }
 
-    public List<Match> getMatches(int firstResult, int tableSize) {
+    public List<Match> getMatches(int pageNumber, int tableSize) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
-            Query<Match> query = session.createQuery("from Match", Match.class);
-
-            //int firstResult = pageNumber*5;
-
+            Query<Match> query = session.createQuery("from Match m ORDER BY m.id desc", Match.class);
+            int firstResult = pageNumber*5;
             query.setFirstResult(firstResult);
             query.setMaxResults(tableSize);
             List<Match> matches = query.getResultList();

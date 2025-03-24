@@ -13,8 +13,6 @@ public class Pagination {
     long nextPageView;
     long lastPage;
     long currentPageNumber;
-    int tableSize;
-    int firstResult;
 
     public Pagination(long currentPageNumber, long matchCount) {
         previousPage = 0;
@@ -24,23 +22,7 @@ public class Pagination {
         currentPageView = 0;
         nextPageView = 0;
         lastPage = 0;
-        firstResult = 0;
-        tableSize=5;
-        reversePagination(currentPageNumber, matchCount);
         setPagination(currentPageNumber, matchCount);
-    }
-
-    public void reversePagination(long currentPageNumber, long matchCount) {
-        if (matchCount%5==0){
-            lastPage=(int)matchCount/5;
-        } else {
-            lastPage=(int)matchCount/5+1;
-        }
-        if((matchCount-5-5*(currentPageNumber-1))>0) {
-            firstResult= (int) (matchCount-5-5*(currentPageNumber-1));
-        } else {
-            tableSize= (int) (matchCount-5*(lastPage-1));
-        }
     }
 
     public void setPagination(long currentPageNumber, long matchCount){
