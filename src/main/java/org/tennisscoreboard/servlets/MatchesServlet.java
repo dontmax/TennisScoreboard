@@ -29,7 +29,6 @@ Pagination pagination;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int TABLE_SIZE = 5;
         long matchCount;
         List<MatchApiDto> matches;
         String pathName="";
@@ -44,16 +43,17 @@ Pagination pagination;
             page="1";
         }
         if(playerName==null || playerName.isEmpty()) {
-            matches = persistenceService.getMatches(Integer.parseInt(page)-1, TABLE_SIZE);
             matchCount = persistenceService.getMatchCount();
+            pagination = new Pagination(Integer.parseInt(page), matchCount);
+            matches = persistenceService.getMatches(pagination.getFirstResult(), pagination.getTableSize()).reversed();
         } else {
-            matches = persistenceService.getMatchesByPlayerName(playerName,Integer.parseInt(page)-1, TABLE_SIZE);
             matchCount = persistenceService.getMatchCountByPlayerName(playerName);
+            pagination = new Pagination(Integer.parseInt(page), matchCount);
+            matches = persistenceService.getMatchesByPlayerName(playerName, pagination.getFirstResult(), pagination.getTableSize());
         }
         if(request.getParameter("filter_by_player_name")!=null) {
             pathName="&filter_by_player_name="+request.getParameter("filter_by_player_name");
         }
-        pagination = new Pagination(Integer.parseInt(page), matchCount);
         request.setAttribute("pathName", pathName);
         request.setAttribute("pagination", pagination);
         request.setAttribute("matches", matches);

@@ -37,11 +37,13 @@ public class HibernateMatchRepository {
         return null;
     }
 
-    public List<Match> getMatches(int pageNumber, int tableSize) {
+    public List<Match> getMatches(int firstResult, int tableSize) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query<Match> query = session.createQuery("from Match", Match.class);
-            int firstResult = pageNumber*5;
+
+            //int firstResult = pageNumber*5;
+
             query.setFirstResult(firstResult);
             query.setMaxResults(tableSize);
             List<Match> matches = query.getResultList();
