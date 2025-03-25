@@ -19,7 +19,7 @@ public class HibernateMatchRepository {
         }
     }
 
-    public List<Match> getByPlayerName(String playerName, int pageNumber, int tableSize) {
+    public List<Match> getMatchesByPlayerName(String playerName, int pageNumber, int tableSize) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query<Match> query = session.createQuery("FROM Match m " +
@@ -58,7 +58,7 @@ public class HibernateMatchRepository {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query query = session.createQuery("select count(*) from Match");
-            matchCount = (Long)query.uniqueResult();
+            matchCount =(Long) query.uniqueResult();
             session.getTransaction().commit();
             return matchCount;
         } catch (Exception e){
@@ -73,7 +73,7 @@ public class HibernateMatchRepository {
             session.beginTransaction();
             Query query = session.createQuery("select count(*) from Match where firstPlayer.name = :playerName or secondPlayer.name = :playerName");
             query.setParameter("playerName", playerName);
-            matchCount = (Long)query.uniqueResult();
+            matchCount = (Long) query.uniqueResult();
             session.getTransaction().commit();
             return matchCount;
         } catch (Exception e){

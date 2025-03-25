@@ -14,7 +14,7 @@ public class Pagination {
     long lastPage;
     long currentPageNumber;
 
-    public Pagination(long currentPageNumber, long matchCount) {
+    public Pagination(int currentPageNumber, long matchCount) {
         previousPage = 0;
         currentPage = 0;
         nextPage = 0;
@@ -25,7 +25,7 @@ public class Pagination {
         setPagination(currentPageNumber, matchCount);
     }
 
-    public void setPagination(long currentPageNumber, long matchCount){
+    private void setPagination(int currentPageNumber, long matchCount){
         this.currentPageNumber =currentPageNumber;
         if(currentPageNumber <=1){
             previousPage=1;
