@@ -1,7 +1,7 @@
 package org.tennisscoreboard.service;
 
 import org.tennisscoreboard.models.Match;
-import org.tennisscoreboard.models.MatchApiDto;
+import org.tennisscoreboard.models.MatchDto;
 import org.tennisscoreboard.repository.HibernateMatchRepository;
 
 import java.util.ArrayList;
@@ -20,26 +20,26 @@ public class FinishedMatchesPersistenceService {
         matchRepository.save(match);
     }
 
-    public List<MatchApiDto> getMatchesByPlayerName(String playerName, int pageNumber){
+    public List<MatchDto> getMatchesByPlayerName(String playerName, int pageNumber){
         List<Match> matches = matchRepository.getMatchesByPlayerName(playerName, pageNumber, TABLE_SIZE);
         return map(matches);
     }
 
-    public List<MatchApiDto> getMatches(int pageNumber){
+    public List<MatchDto> getMatches(int pageNumber){
         List<Match> matches = matchRepository.getMatches(pageNumber, TABLE_SIZE);
         return map(matches);
     }
 
-    public List<MatchApiDto> map(List<Match> matches){
-        List<MatchApiDto> matchApiDtos = new ArrayList<MatchApiDto>();
+    public List<MatchDto> map(List<Match> matches){
+        List<MatchDto> matchDtos = new ArrayList<>();
         for (Match match : matches){
-            matchApiDtos.add(new MatchApiDto(
+            matchDtos.add(new MatchDto(
                     match.getId(),
                     match.getFirstPlayer().getName(),
                     match.getSecondPlayer().getName(),
                     match.getWinner().getName()
             ));
         }
-        return matchApiDtos;
+        return matchDtos;
     }
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MatchApiDto {
+public class MatchDto {
 
     private int id;
     private String firstPlayerName;

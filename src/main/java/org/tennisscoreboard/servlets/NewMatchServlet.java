@@ -10,14 +10,15 @@ import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.models.Player;
 import org.tennisscoreboard.repository.HibernatePlayerRepository;
 import org.tennisscoreboard.service.CurrentMatchesService;
-import org.tennisscoreboard.utils.Validation;
+import org.tennisscoreboard.service.ValidationService;
 
 @WebServlet(name = "NewMatchServlet", value = "/new-match")
 public class NewMatchServlet extends HttpServlet {
     HibernatePlayerRepository playerRepo;
-
+    ValidationService validationService;
     public void init() {
         playerRepo = new HibernatePlayerRepository();
+        validationService = new ValidationService();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -32,40 +33,20 @@ public class NewMatchServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstPlayerName = request.getParameter("firstPlayerName").trim();
         String secondPlayerName = request.getParameter("secondPlayerName").trim();
-        boolean validation=true;
-        String ERROR_MESSAGE = " Player name must begin with uppercase letter, max length: 25 symbols, not \"";
-        if(!Validation.isName(firstPlayerName)){
-            ERROR_MESSAGE = "First"+ERROR_MESSAGE+firstPlayerName+"\"";
-            validation=false;
-        }
-        if(!Validation.isName(secondPlayerName)){
-            ERROR_MESSAGE = "Second"+ERROR_MESSAGE+secondPlayerName+"\"";
-            validation=false;
-        }
-        if(Validation.areNamesSame(firstPlayerName, secondPlayerName)){
-            ERROR_MESSAGE="Names can't be the same";
-            validation=false;
-        }
-        if(!validation){
-            request.setAttribute("message", ERROR_MESSAGE);
+        if(!validationService.validateNames(firstPlayerName, secondPlayerName)){
+            request.setAttribute("message", validationService.getErrorMessage());
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-match.jsp");
             try {
                 requestDispatcher.forward(request, response);
+                return;
             } catch (ServletException e) {
                 throw new RuntimeException(e);
             }
         }
-
+        playerRepo.save(new Player(firstPlayerName));
+        playerRepo.save(new Player(secondPlayerName));
         Player firstPlayer = playerRepo.getByName(firstPlayerName);
         Player secondPlayer = playerRepo.getByName(secondPlayerName);
-        if(firstPlayer == null){
-            playerRepo.save(new Player(firstPlayerName));
-            firstPlayer = playerRepo.getByName(firstPlayerName);
-        }
-        if(secondPlayer == null){
-            playerRepo.save(new Player(secondPlayerName));
-            secondPlayer = playerRepo.getByName(secondPlayerName);
-        }
         String match_id = UUID.randomUUID().toString();
         CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
         CurrentMatchesService.add(match_id, currentMatch);

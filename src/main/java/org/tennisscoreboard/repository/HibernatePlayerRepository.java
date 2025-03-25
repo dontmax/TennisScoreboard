@@ -1,5 +1,6 @@
 package org.tennisscoreboard.repository;
 
+import jakarta.validation.ConstraintViolationException;
 import org.hibernate.query.Query;
 import org.tennisscoreboard.models.Player;
 import org.hibernate.Session;
@@ -13,7 +14,9 @@ public class HibernatePlayerRepository {
             session.persist(player);
             session.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            if(!(e instanceof ConstraintViolationException)) {
+                //throw Database Exception
+            }
         }
     }
 
@@ -26,8 +29,7 @@ public class HibernatePlayerRepository {
             player = query.getSingleResult();
             return player;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);//throw Database Exception
         }
     }
 

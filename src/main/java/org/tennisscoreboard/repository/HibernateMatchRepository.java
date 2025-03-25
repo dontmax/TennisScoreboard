@@ -15,11 +15,12 @@ public class HibernateMatchRepository {
             session.persist(match);
             session.getTransaction().commit();
         } catch (Exception e){
-            e.printStackTrace();
+            e.printStackTrace();//throw Database exception
         }
     }
 
     public List<Match> getMatchesByPlayerName(String playerName, int pageNumber, int tableSize) {
+        List<Match> matches;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query<Match> query = session.createQuery("FROM Match m " +
@@ -28,13 +29,12 @@ public class HibernateMatchRepository {
             int firstResult = pageNumber*5;
             query.setFirstResult(firstResult);
             query.setMaxResults(tableSize);
-            List<Match> matches = query.getResultList();
+            matches = query.getResultList();
             session.getTransaction().commit();
             return matches;
         } catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);//throw Database exception
         }
-        return null;
     }
 
     public List<Match> getMatches(int pageNumber, int tableSize) {
@@ -48,38 +48,35 @@ public class HibernateMatchRepository {
             session.getTransaction().commit();
             return matches;
         } catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);//throw Database exception
         }
-        return null;
     }
 
     public long getMatchCount() {
-        long matchCount=0;
+        Long matchCount;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query query = session.createQuery("select count(*) from Match");
             matchCount =(Long) query.uniqueResult();
             session.getTransaction().commit();
-            return matchCount;
+            return (matchCount==null)?0:matchCount;
         } catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);//throw Database exception
         }
-        return matchCount;
     }
 
     public long getMatchCountByPlayerName(String playerName) {
-        long matchCount=0;
+        Long matchCount;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Query query = session.createQuery("select count(*) from Match where firstPlayer.name = :playerName or secondPlayer.name = :playerName");
             query.setParameter("playerName", playerName);
             matchCount = (Long) query.uniqueResult();
             session.getTransaction().commit();
-            return matchCount;
+            return (matchCount==null)?0:matchCount;
         } catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);//throw Database exception
         }
-        return matchCount;
     }
 
 }
