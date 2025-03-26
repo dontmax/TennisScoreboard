@@ -20,4 +20,8 @@ public class CurrentMatchesService {
     public static void remove(String uuid){
         currentMatches.remove(uuid);
     }
+
+    public static boolean contains(String matchId){
+        return currentMatches.containsKey(matchId);
+    }
 }

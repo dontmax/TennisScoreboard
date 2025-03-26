@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.tennisscoreboard.models.MatchDto;
+import org.tennisscoreboard.models.MatchDTO;
 import org.tennisscoreboard.repository.HibernateMatchRepository;
 import org.tennisscoreboard.repository.HibernatePlayerRepository;
 import org.tennisscoreboard.service.FinishedMatchesPersistenceService;
@@ -32,7 +32,7 @@ Pagination pagination;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<MatchDto> matches;
+        List<MatchDTO> matches;
         String pathName="";
         int pageNumber = parseInt(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");

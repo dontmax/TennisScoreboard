@@ -1,7 +1,8 @@
 package org.tennisscoreboard.service;
 
+import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.models.Match;
-import org.tennisscoreboard.models.MatchDto;
+import org.tennisscoreboard.models.MatchDTO;
 import org.tennisscoreboard.repository.HibernateMatchRepository;
 
 import java.util.ArrayList;
@@ -16,30 +17,37 @@ public class FinishedMatchesPersistenceService {
         this.matchRepository = matchRepository;
     }
 
-    public void save(Match match){
-        matchRepository.save(match);
+    public void save(CurrentMatch currentMatch){
+        matchRepository.save(mapToMatch(currentMatch));
     }
 
-    public List<MatchDto> getMatchesByPlayerName(String playerName, int pageNumber){
+    public List<MatchDTO> getMatchesByPlayerName(String playerName, int pageNumber){
         List<Match> matches = matchRepository.getMatchesByPlayerName(playerName, pageNumber, TABLE_SIZE);
-        return map(matches);
+        return mapToMatchDTO(matches);
     }
 
-    public List<MatchDto> getMatches(int pageNumber){
+    public List<MatchDTO> getMatches(int pageNumber){
         List<Match> matches = matchRepository.getMatches(pageNumber, TABLE_SIZE);
-        return map(matches);
+        return mapToMatchDTO(matches);
     }
 
-    public List<MatchDto> map(List<Match> matches){
-        List<MatchDto> matchDtos = new ArrayList<>();
+    private List<MatchDTO> mapToMatchDTO(List<Match> matches){
+        List<MatchDTO> matchDTOs = new ArrayList<>();
         for (Match match : matches){
-            matchDtos.add(new MatchDto(
+            matchDTOs.add(new MatchDTO(
                     match.getId(),
                     match.getFirstPlayer().getName(),
                     match.getSecondPlayer().getName(),
                     match.getWinner().getName()
             ));
         }
-        return matchDtos;
+        return matchDTOs;
+    }
+
+    private Match mapToMatch(CurrentMatch currentMatch){
+        return new Match(
+                currentMatch.getFirstPlayer(),
+                currentMatch.getSecondPlayer(),
+                currentMatch.getWinnerPlayer());
     }
 }

@@ -20,9 +20,13 @@ public class CurrentMatch {
     private int secondPlayerSets;
 
     public CurrentMatch(Player firstPlayer, Player secondPlayer) {
+        this();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-        this.winnerPlayer = new Player();
+
+    }
+
+    public CurrentMatch(){
         this.firstPlayerPoints = 0;
         this.secondPlayerPoints = 0;
         this.firstPlayerPointsView = "0";
@@ -32,5 +36,4 @@ public class CurrentMatch {
         this.firstPlayerSets = 0;
         this.secondPlayerSets = 0;
     }
-
 }
