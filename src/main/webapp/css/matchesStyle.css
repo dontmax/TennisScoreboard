@@ -74,24 +74,55 @@ h1 {
     min-height: calc(100vh - 120px);
 }
 
-.tableSet {
-    text-align: center;
-}
 
-.form {
+.nameSearchSection {
     display: flex;
     margin-bottom: 40px;
+    width: 100%;
 }
-.textLabel {
+
+.searchForm {
+    display: flex;
+    width: 80%;
+    left: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.resetForm {
+    display: flex;
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+
+}
+
+.textContainer {
     display: inline-block;
-    width:70%;
+    width:60%;
     text-align: left;
 }
 
-.submitContainer {
+.findButtonContainer {
+    width: 40%;
     display: inline-block;
-    width:30%;
+    right: auto;
+
+}
+
+.findButton {
+    background-color: burlywood;
+    height: 40px;
+    width: 70%;
+    border-radius: 35px;
+}
+
+.resetButtonContainer {
+    display: inline-block;
+    width:100%;
     text-align: right;
+    right: auto;
 }
 
 .text {
@@ -106,11 +137,16 @@ h1 {
     color: black;
 }
 
-.submit {
+.resetButton {
     background-color: burlywood;
     height: 40px;
-    width: 90%;
+    right: auto;
+    width: 100%;
     border-radius: 35px;
+}
+
+.tableSet {
+    text-align: center;
 }
 
 .table {
@@ -125,7 +161,7 @@ h1 {
 td {
     font-size: 20px;
     width: 30%;
- }
+}
 
 thead {
     background-color: burlywood;
@@ -136,6 +172,18 @@ tbody {
 tbody td{
     padding: 50px 0;
     border-top: 1px solid saddlebrown;
+}
+
+.winner {
+
+}
+.winner p {
+    background-color: #dddddd;
+    display: block;
+    width: 60%;
+
+    margin: 0 auto;
+    border-radius: 18px;
 }
 
 .pagination {

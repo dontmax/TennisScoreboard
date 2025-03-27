@@ -1,82 +1,106 @@
 package org.tennisscoreboard.repository;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.tennisscoreboard.models.Match;
 import org.tennisscoreboard.utils.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateMatchRepository {
 
     public void save(Match match) {
+        Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             session.persist(match);
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e){
-            e.printStackTrace();//throw Database exception
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw new HibernateException("Error adding new match " + match);
         }
     }
 
     public List<Match> getMatchesByPlayerName(String playerName, int pageNumber, int tableSize) {
-        List<Match> matches;
+        List<Match> matches = new ArrayList<Match>();
+        Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             Query<Match> query = session.createQuery("FROM Match m " +
-                    "WHERE m.firstPlayer.name = :playerName OR m.secondPlayer.name = :playerName order by m.id desc", Match.class);
-            query.setParameter("playerName", playerName);
+                    "WHERE m.firstPlayer.name LIKE :playerName OR m.secondPlayer.name LIKE :playerName order by m.id desc", Match.class);
+            query.setParameter("playerName", playerName+"%");
             int firstResult = pageNumber*5;
             query.setFirstResult(firstResult);
             query.setMaxResults(tableSize);
             matches = query.getResultList();
-            session.getTransaction().commit();
-            return matches;
+            transaction.commit();
         } catch (Exception e){
-            throw new RuntimeException(e);//throw Database exception
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw new HibernateException("Error getting matches");
         }
+        return matches;
     }
 
     public List<Match> getMatches(int pageNumber, int tableSize) {
+        List<Match> matches = new ArrayList<>();
+        Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             Query<Match> query = session.createQuery("from Match m ORDER BY m.id desc", Match.class);
             int firstResult = pageNumber*5;
             query.setFirstResult(firstResult);
             query.setMaxResults(tableSize);
-            List<Match> matches = query.getResultList();
-            session.getTransaction().commit();
-            return matches;
+            matches = query.getResultList();
+            transaction.commit();
         } catch (Exception e){
-            throw new RuntimeException(e);//throw Database exception
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw new HibernateException("Error getting matches");
         }
+        return matches;
     }
 
-    public long getMatchCount() {
-        Long matchCount;
+    public long getTotalMatchCount() {
+        Long matchCount=0L;
+        Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             Query query = session.createQuery("select count(*) from Match");
             matchCount =(Long) query.uniqueResult();
-            session.getTransaction().commit();
-            return (matchCount==null)?0:matchCount;
+            transaction.commit();
         } catch (Exception e){
-            throw new RuntimeException(e);//throw Database exception
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw new HibernateException("Error getting total matchCount");
         }
+        return (matchCount==null)?0:matchCount;
     }
 
-    public long getMatchCountByPlayerName(String playerName) {
-        Long matchCount;
+    public long getTotalMatchCountByPlayerName(String playerName) {
+        Long matchCount=0L;
+        Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
-            Query query = session.createQuery("select count(*) from Match where firstPlayer.name = :playerName or secondPlayer.name = :playerName");
-            query.setParameter("playerName", playerName);
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("select count(*) from Match where firstPlayer.name LIKE :playerName or secondPlayer.name LIKE :playerName");
+            query.setParameter("playerName", playerName+"%");
             matchCount = (Long) query.uniqueResult();
-            session.getTransaction().commit();
-            return (matchCount==null)?0:matchCount;
+            transaction.commit();
         } catch (Exception e){
-            throw new RuntimeException(e);//throw Database exception
+            if(transaction!=null){
+                transaction.rollback();
+            }
+            throw new HibernateException("Error getting total MatchCount by player name");
         }
+        return (matchCount==null)?0:matchCount;
     }
 
 }

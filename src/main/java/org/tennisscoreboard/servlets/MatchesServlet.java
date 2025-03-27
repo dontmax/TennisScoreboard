@@ -36,25 +36,32 @@ Pagination pagination;
         String pathName="";
         int pageNumber = parseInt(request.getParameter("page"));
         String playerName = request.getParameter("filter_by_player_name");
-        String errorMessage = "No matches found";
-        if(!Validation.isName(playerName)) {
-            request.setAttribute("message", errorMessage);
+        if(playerName!=null&&!Validation.isName(playerName)) {
             playerName = null;
         }
-        if(playerName==null || playerName.isBlank()) {
-            pagination = paginationService.getPagination(pageNumber);
-            matches = persistenceService.getMatches(pageNumber-1);
-        } else {
+        try {
             pagination = paginationService.getPagination(pageNumber, playerName);
-            matches = persistenceService.getMatchesByPlayerName(playerName, pageNumber-1);
+            matches = persistenceService.getMatches(pageNumber-1, playerName);
+            if(playerName!=null) {
+                pathName="&filter_by_player_name="+request.getParameter("filter_by_player_name");
+            }
+            request.setAttribute("pathName", pathName);
+            request.setAttribute("pagination", pagination);
+            request.setAttribute("matches", matches);
+            request.getRequestDispatcher("/matches.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
-        if(request.getParameter("filter_by_player_name")!=null) {
-            pathName="&filter_by_player_name="+request.getParameter("filter_by_player_name");
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String playerName = request.getParameter("filter_by_player_name");
+        String playerNamePath="";
+        if(playerName!=null&&Validation.isName(playerName)) {
+            playerNamePath = "&filter_by_player_name=" + playerName;
         }
-        request.setAttribute("pathName", pathName);
-        request.setAttribute("pagination", pagination);
-        request.setAttribute("matches", matches);
-        request.getRequestDispatcher("/matches.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/matches?page=1"+playerNamePath);
     }
 
     private int parseInt(String page){

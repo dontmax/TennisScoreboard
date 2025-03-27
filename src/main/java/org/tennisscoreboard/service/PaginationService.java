@@ -14,25 +14,24 @@ public class PaginationService {
     }
 
     private long getTotalMatchCount() {
-        return matchRepository.getMatchCount();
+        return matchRepository.getTotalMatchCount();
     }
 
     private long getTotalMatchCount(String playerName) {
-        return matchRepository.getMatchCountByPlayerName(playerName);
+        return matchRepository.getTotalMatchCountByPlayerName(playerName);
     }
 
     private void setPagination(int pageNumber, long matchCount) {
         pagination = new Pagination(pageNumber, matchCount);
     }
 
-    public Pagination getPagination(int pageNumber) {
-        totalMatchCount = getTotalMatchCount();
-        setPagination(pageNumber, totalMatchCount);
-        return pagination;
-    }
-
     public Pagination getPagination(int pageNumber, String playerName) {
-        totalMatchCount = getTotalMatchCount(playerName);
+
+        if(playerName==null||playerName.isBlank()){
+            totalMatchCount = getTotalMatchCount();
+        } else {
+            totalMatchCount = getTotalMatchCount(playerName);
+        }
         setPagination(pageNumber, totalMatchCount);
         return pagination;
     }

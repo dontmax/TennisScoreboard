@@ -18,15 +18,22 @@
         <div class="menu">
             <main>
                 <h1>Matches</h1>
+                <section class="nameSearchSection">
+                    <form class="searchForm" action="${pageContext.request.contextPath}/matches?page=1" method="post">
+                        <label class="textContainer">
+                            <input class="text" type="text" name="filter_by_player_name"  placeholder="Filter by name">
+                        </label>
+                        <div class="findButtonContainer">
+                            <input class="findButton" type="submit" value="Find">
+                        </div>
+                    </form>
+                    <form class="resetForm" action="${pageContext.request.contextPath}/matches?page=1" method="get">
+                        <div class="resetButtonContainer">
+                            <input class="resetButton" type="submit" value="Reset Filter">
+                        </div>
+                    </form>
+                </section>
                 <div class="tableSet">
-                <form class="form">
-                    <label class="textLabel">
-                        <input class="text" type="text" placeholder="Filter by name">
-                    </label>
-                    <div class="submitContainer">
-                        <input class="submit" type="submit" value="Reset Filter">
-                    </div>
-                </form>
                 <table class="table">
                     <thead>
                     <tr>
@@ -39,27 +46,27 @@
                     <tr>
                         <td>First Player</td>
                         <td>Second Player</td>
-                        <td>Winner</td>
+                        <td class="winner"><p>Winner</p></td>
                     </tr>
                     <tr>
                         <td>First Player</td>
                         <td>Second Player</td>
-                        <td>Winner</td>
+                        <td class="winner">Winner</td>
                     </tr>
                     <tr>
                         <td>First Player</td>
                         <td>Second Player</td>
-                        <td>Winner</td>
+                        <td class="winner">Winner</td>
                     </tr>
                     <tr>
                         <td>First Player</td>
                         <td>Second Player</td>
-                        <td>Winner</td>
+                        <td class="winner">Winner</td>
                     </tr>
                     <tr>
                         <td>First Player</td>
                         <td>Second Player</td>
-                        <td>Winner</td>
+                        <td class="winner">Winner</td>
                     </tr>
                     </tbody>
                 </table>

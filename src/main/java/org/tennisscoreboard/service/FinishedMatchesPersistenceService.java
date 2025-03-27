@@ -21,13 +21,13 @@ public class FinishedMatchesPersistenceService {
         matchRepository.save(mapToMatch(currentMatch));
     }
 
-    public List<MatchDTO> getMatchesByPlayerName(String playerName, int pageNumber){
-        List<Match> matches = matchRepository.getMatchesByPlayerName(playerName, pageNumber, TABLE_SIZE);
-        return mapToMatchDTO(matches);
-    }
-
-    public List<MatchDTO> getMatches(int pageNumber){
-        List<Match> matches = matchRepository.getMatches(pageNumber, TABLE_SIZE);
+    public List<MatchDTO> getMatches(int pageNumber, String playerName){
+        List<Match> matches;
+        if(playerName==null||playerName.isBlank()) {
+            matches = matchRepository.getMatches(pageNumber, TABLE_SIZE);
+        } else {
+            matches = matchRepository.getMatchesByPlayerName(playerName, pageNumber, TABLE_SIZE);
+        }
         return mapToMatchDTO(matches);
     }
 

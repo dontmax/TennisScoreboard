@@ -1,6 +1,8 @@
 package org.tennisscoreboard.repository;
 
 import jakarta.validation.ConstraintViolationException;
+import org.hibernate.HibernateException;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.tennisscoreboard.models.Player;
 import org.hibernate.Session;
@@ -9,28 +11,37 @@ import org.tennisscoreboard.utils.HibernateUtil;
 public class HibernatePlayerRepository {
 
     public void save(Player player) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             session.persist(player);
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
             if(!(e instanceof ConstraintViolationException)) {
-                //throw Database Exception
+                throw new HibernateException("Error saving player " + player.getName());
             }
         }
     }
 
     public Player getByName(String name) {
+        Transaction transaction = null;
+        Player player;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             Query<Player> query = session.createQuery("from Player where name = :name", Player.class);
             query.setParameter("name", name);
-            Player player;
             player = query.getSingleResult();
-            return player;
+            transaction.commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);//throw Database Exception
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            throw new HibernateException("Error getting player " + name);
         }
+        return player;
     }
 
 }

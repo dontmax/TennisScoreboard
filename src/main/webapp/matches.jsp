@@ -20,22 +20,23 @@
 <div class="menu">
     <main>
         <h1>Matches</h1>
-        <div class="tableSet">
-            <form class="form" action="${pageContext.request.contextPath}/matches" method="get">
-                <input type="hidden" name="page" value="1">
-                <label class="textLabel">
-                    <c:if test="${message!=null}">
-                        <input class="text" type="text" name="filter_by_player_name"  placeholder="${message}">
-                    </c:if>
-                    <c:if test="${message==null}">
-                        <input class="text" type="text" name="filter_by_player_name"  placeholder="Filter by name">
-                    </c:if>
+        <section class="nameSearchSection">
+            <form class="searchForm" action="${pageContext.request.contextPath}/matches?page=1" method="post">
+                <label class="textContainer">
+                    <input class="text" type="text" name="filter_by_player_name"  placeholder="Filter by name">
                 </label>
-                <div class="submitContainer">
-                    <input class="submit" type="submit" value="Reset Filter">
+                <div class="findButtonContainer">
+                    <input class="findButton" type="submit" value="Find">
                 </div>
             </form>
-            <table class="table">
+                <form class="resetForm" action="${pageContext.request.contextPath}/matches?page=1" method="get">
+                    <div class="resetButtonContainer">
+                        <input class="resetButton" type="submit" value="Reset Filter">
+                    </div>
+                </form>
+        </section>
+        <div class="tableSet">
+        <table class="table">
                 <thead>
                 <tr>
                     <td>Player One</td>
@@ -48,7 +49,7 @@
                         <tr>
                             <td>${match.getFirstPlayerName()}</td>
                             <td>${match.getSecondPlayerName()}</td>
-                            <td>${match.getWinnerName()}</td>
+                            <td class="winner"><p>${match.getWinnerName()}</p></td>
                         </tr>
                     </c:forEach>
                 </tbody>

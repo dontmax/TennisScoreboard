@@ -26,7 +26,7 @@ public class MatchScoreServlet extends HttpServlet {
         finishedMatchesPersistenceService = new FinishedMatchesPersistenceService(matchRepository);
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String match_id = (request.getParameter("uuid"));
         if(CurrentMatchesService.contains(match_id)){
             CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
@@ -36,28 +36,28 @@ public class MatchScoreServlet extends HttpServlet {
                 request.setAttribute("winner", currentMatch.getWinnerPlayer().getName());
                 CurrentMatchesService.remove(match_id);
             }
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/match-score.jsp");
-            try {
-                requestDispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
+            request.getRequestDispatcher("/match-score.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/matches?page=1");
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String match_id = (request.getParameter("uuid"));
         CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
-        if(currentMatch!= null && currentMatch.getWinnerPlayer() == null) {
-            matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);
-            matchScoreCalculationService.addPointsTo(Integer.parseInt(request.getParameter("scoreWinnerId")));
-            if (matchScoreCalculationService.isMatchOver()) {
-                finishedMatchesPersistenceService.save(currentMatch);
+        try {
+            if(currentMatch!= null && currentMatch.getWinnerPlayer() == null) {
+                matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);
+                matchScoreCalculationService.addPointsTo(Integer.parseInt(request.getParameter("scoreWinnerId")));
+                if (matchScoreCalculationService.isMatchOver()) {
+                    finishedMatchesPersistenceService.save(currentMatch);
+                }
             }
+            response.sendRedirect("/match-score?uuid=" + match_id);
+        } catch (Exception e) {
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
-        response.sendRedirect("/match-score?uuid=" + match_id);
     }
 
 }

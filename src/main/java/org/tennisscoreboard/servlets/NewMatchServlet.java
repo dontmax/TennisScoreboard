@@ -30,27 +30,27 @@ public class NewMatchServlet extends HttpServlet {
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String firstPlayerName = request.getParameter("firstPlayerName").trim();
-        String secondPlayerName = request.getParameter("secondPlayerName").trim();
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String firstPlayerName = request.getParameter("firstPlayerName");
+        String secondPlayerName = request.getParameter("secondPlayerName");
         if(!validationService.validateNames(firstPlayerName, secondPlayerName)){
             request.setAttribute("message", validationService.getErrorMessage());
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-match.jsp");
-            try {
-                requestDispatcher.forward(request, response);
-                return;
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
+            request.getRequestDispatcher("/new-match.jsp").forward(request, response);
+            return;
         }
-        playerRepo.save(new Player(firstPlayerName));
-        playerRepo.save(new Player(secondPlayerName));
-        Player firstPlayer = playerRepo.getByName(firstPlayerName);
-        Player secondPlayer = playerRepo.getByName(secondPlayerName);
-        String match_id = UUID.randomUUID().toString();
-        CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
-        CurrentMatchesService.add(match_id, currentMatch);
-        response.sendRedirect("/match-score?uuid="+match_id);
+        try {
+            playerRepo.save(new Player(firstPlayerName));
+            playerRepo.save(new Player(secondPlayerName));
+            Player firstPlayer = playerRepo.getByName(firstPlayerName);
+            Player secondPlayer = playerRepo.getByName(secondPlayerName);
+            String match_id = UUID.randomUUID().toString();
+            CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
+            CurrentMatchesService.add(match_id, currentMatch);
+            response.sendRedirect("/match-score?uuid="+match_id);
+        } catch (Exception e) {
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+        }
     }
 
 }

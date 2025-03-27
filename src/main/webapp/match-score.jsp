@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <link href="css/matchScoreStyle.css" rel="stylesheet" type="text/css">
-
     <meta charset="UTF-8">
     <title>Tennis Scoreboard | Match Score</title>
 </head>
