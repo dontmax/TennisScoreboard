@@ -9,7 +9,7 @@ public class CurrentMatch {
 
     private Player firstPlayer;
     private Player secondPlayer;
-    private Player winnerPlayer;
+    private Player winner;
     private int firstPlayerPoints;
     private int secondPlayerPoints;
     private String firstPlayerPointsView;
@@ -26,7 +26,7 @@ public class CurrentMatch {
 
     }
 
-    public CurrentMatch(){
+    public CurrentMatch() {
         this.firstPlayerPoints = 0;
         this.secondPlayerPoints = 0;
         this.firstPlayerPointsView = "0";

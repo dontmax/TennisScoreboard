@@ -5,9 +5,8 @@ import org.tennisscoreboard.utils.Pagination;
 
 public class PaginationService {
 
-    HibernateMatchRepository matchRepository;
+    private final HibernateMatchRepository matchRepository;
     private Pagination pagination;
-    long totalMatchCount;
 
     public PaginationService(HibernateMatchRepository matchRepository) {
         this.matchRepository = matchRepository;
@@ -26,8 +25,8 @@ public class PaginationService {
     }
 
     public Pagination getPagination(int pageNumber, String playerName) {
-
-        if(playerName==null||playerName.isBlank()){
+        long totalMatchCount;
+        if (playerName == null || playerName.isBlank()) {
             totalMatchCount = getTotalMatchCount();
         } else {
             totalMatchCount = getTotalMatchCount(playerName);

@@ -9,19 +9,19 @@ public class CurrentMatchesService {
 
     static Map<String, CurrentMatch> currentMatches = new HashMap<>();
 
-    public static void add(String matchId, CurrentMatch currentMatch){
+    public static void add(String matchId, CurrentMatch currentMatch) {
         currentMatches.put(matchId, currentMatch);
     }
 
-    public static CurrentMatch get(String uuid){
+    public static CurrentMatch get(String uuid) {
         return currentMatches.get(uuid);
     }
 
-    public static void remove(String uuid){
+    public static void remove(String uuid) {
         currentMatches.remove(uuid);
     }
 
-    public static boolean contains(String matchId){
+    public static boolean contains(String matchId) {
         return currentMatches.containsKey(matchId);
     }
 }

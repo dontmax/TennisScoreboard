@@ -4,18 +4,17 @@ import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.utils.ScoreCalculator;
 
 public class MatchScoreCalculationService {
-    CurrentMatch currentMatch;
-    ScoreCalculator ScoreCalculator;
+    private final ScoreCalculator ScoreCalculator;
 
     public MatchScoreCalculationService(CurrentMatch currentMatch) {
-        this.currentMatch = currentMatch;
-        ScoreCalculator = new ScoreCalculator(this.currentMatch);
+        ScoreCalculator = new ScoreCalculator(currentMatch);
     }
-    public void addPointsTo(int scoreWinnerId){
+
+    public void addPointsTo(int scoreWinnerId) {
         ScoreCalculator.addPointsTo(scoreWinnerId);
     }
 
-    public boolean isMatchOver(){
+    public boolean isMatchOver() {
         return ScoreCalculator.isMatchOver();
     }
 }

@@ -9,11 +9,12 @@ body {
     font-family: "Poppins", sans-serif;
 
 }
+
 * {
     box-sizing: border-box;
 }
 
-.header{
+.header {
     margin: auto;
     height: 50px;
     border-bottom: 2px solid black;
@@ -39,7 +40,7 @@ footer {
     width: 50%;
     text-align: left;
     font-size: 24px;
-    margin:0;
+    margin: 0;
     padding-left: 30px;
 }
 
@@ -67,11 +68,11 @@ h2 {
 
 .menu {
     min-height: calc(100vh - 120px);
-    width:80%;
+    width: 80%;
     max-width: 1300px;
-    margin-top:20px;
-    margin-left:auto;
-    margin-right:auto;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
     display: block;
 
@@ -86,22 +87,23 @@ h2 {
 
 .imgTennisRocket {
     height: 100%;
-    width:100%;
+    width: 100%;
     border-radius: 50px;
 }
+
 .buttonContainer {
     max-width: 1300px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width:auto;
+    width: auto;
     margin-top: 50px;
-    gap:10px;
+    gap: 10px;
 }
 
-.buttonMatches,.buttonNewMatch {
+.buttonMatches, .buttonNewMatch {
     color: black;
-    width:30%;
+    width: 30%;
     min-width: 150px;
     text-align: center;
     text-decoration: none;
@@ -127,10 +129,12 @@ h2 {
     .projectName {
         font-size: 22px;
     }
+
     .footer {
         padding: 0;
         line-height: 1;
     }
+
     .footerText {
         font-size: 20px;
     }

@@ -2,6 +2,7 @@ package org.tennisscoreboard.servlets;
 
 import java.io.*;
 import java.util.UUID;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -16,6 +17,7 @@ import org.tennisscoreboard.service.ValidationService;
 public class NewMatchServlet extends HttpServlet {
     HibernatePlayerRepository playerRepo;
     ValidationService validationService;
+
     public void init() {
         playerRepo = new HibernatePlayerRepository();
         validationService = new ValidationService();
@@ -33,7 +35,7 @@ public class NewMatchServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String firstPlayerName = request.getParameter("firstPlayerName");
         String secondPlayerName = request.getParameter("secondPlayerName");
-        if(!validationService.validateNames(firstPlayerName, secondPlayerName)){
+        if (!validationService.validateNames(firstPlayerName, secondPlayerName)) {
             request.setAttribute("message", validationService.getErrorMessage());
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
@@ -46,7 +48,7 @@ public class NewMatchServlet extends HttpServlet {
             String match_id = UUID.randomUUID().toString();
             CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
             CurrentMatchesService.add(match_id, currentMatch);
-            response.sendRedirect("/match-score?uuid="+match_id);
+            response.sendRedirect("/match-score?uuid=" + match_id);
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
             request.getRequestDispatcher("/errorPage.jsp").forward(request, response);

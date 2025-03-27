@@ -1,4 +1,5 @@
 package org.tennisscoreboard.models;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,10 +18,10 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="name", unique = true, nullable=false, length=50)
-    private String  name;
+    @Column(name = "name", unique = true, nullable = false, length = 50)
+    private String name;
 
-    public Player(String name){
+    public Player(String name) {
         this.name = name;
     }
 

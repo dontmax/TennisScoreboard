@@ -12,16 +12,16 @@ public class ScoreCalculator {
     }
 
     public void addPointsTo(int scoreWinnerId) {
-        if(scoreWinnerId==currentMatch.getFirstPlayer().getId()){
+        if (scoreWinnerId == currentMatch.getFirstPlayer().getId()) {
             set.addPoints(1);
-        } else if (scoreWinnerId==currentMatch.getSecondPlayer().getId()){
+        } else if (scoreWinnerId == currentMatch.getSecondPlayer().getId()) {
             set.addPoints(2);
         }
         setPointsToCurrentMatch();
-        if(isMatchOver()){
-            if(currentMatch.getFirstPlayerSets()>currentMatch.getSecondPlayerSets()){
-                currentMatch.setWinnerPlayer(currentMatch.getFirstPlayer());
-            } else currentMatch.setWinnerPlayer(currentMatch.getSecondPlayer());
+        if (isMatchOver()) {
+            if (currentMatch.getFirstPlayerSets() > currentMatch.getSecondPlayerSets()) {
+                currentMatch.setWinner(currentMatch.getFirstPlayer());
+            } else currentMatch.setWinner(currentMatch.getSecondPlayer());
             set.resetSets();
         }
     }
@@ -38,7 +38,7 @@ public class ScoreCalculator {
     }
 
     public boolean isMatchOver() {
-        return currentMatch.getFirstPlayerSets()==2||
-                currentMatch.getSecondPlayerSets()==2;
+        return currentMatch.getFirstPlayerSets() == 2 ||
+                currentMatch.getSecondPlayerSets() == 2;
     }
 }

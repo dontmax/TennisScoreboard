@@ -8,11 +8,12 @@ body {
     overflow: hidden;
     font-family: "Poppins", sans-serif;
 }
+
 * {
     box-sizing: border-box;
 }
 
-.header{
+.header {
     margin: auto;
     height: 50px;
     border-bottom: 2px solid saddlebrown;
@@ -41,7 +42,7 @@ footer {
     width: 50%;
     text-align: left;
     font-size: 24px;
-    margin:0;
+    margin: 0;
     padding-left: 30px;
 }
 
@@ -65,11 +66,11 @@ h1 {
 }
 
 .menu {
-    width:80%;
+    width: 80%;
     max-width: 1300px;
-    margin-top:20px;
-    margin-left:auto;
-    margin-right:auto;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px 0;
     min-height: calc(100vh - 120px);
 }
@@ -100,7 +101,7 @@ h1 {
 
 .textContainer {
     display: inline-block;
-    width:60%;
+    width: 60%;
     text-align: left;
 }
 
@@ -120,7 +121,7 @@ h1 {
 
 .resetButtonContainer {
     display: inline-block;
-    width:100%;
+    width: 100%;
     text-align: right;
     right: auto;
 }
@@ -130,9 +131,10 @@ h1 {
     color: saddlebrown;
     background-color: wheat;
     height: 40px;
-    width:90%;
+    width: 90%;
     border-radius: 35px;
 }
+
 .text::placeholder {
     color: black;
 }
@@ -153,11 +155,12 @@ h1 {
     border-collapse: collapse;
     width: 100%;
     color: #000000;
-    border:1px solid saddlebrown;
+    border: 1px solid saddlebrown;
     aspect-ratio: 10/3;
     border-radius: 50px;
     text-align: center;
 }
+
 td {
     font-size: 20px;
     width: 30%;
@@ -166,10 +169,12 @@ td {
 thead {
     background-color: burlywood;
 }
+
 tbody {
     background-color: wheat;
 }
-tbody td{
+
+tbody td {
     padding: 50px 0;
     border-top: 1px solid saddlebrown;
 }
@@ -177,6 +182,7 @@ tbody td{
 .winner {
 
 }
+
 .winner p {
     background-color: #dddddd;
     display: block;
@@ -187,31 +193,35 @@ tbody td{
 }
 
 .pagination {
-    margin-top:40px;
+    margin-top: 40px;
     font-size: 25px;
 }
-.pagination a{
-    color:saddlebrown;
-    margin-left:10px;
-    margin-right:10px;
+
+.pagination a {
+    color: saddlebrown;
+    margin-left: 10px;
+    margin-right: 10px;
     text-decoration: none;
 }
+
 .pagination a.selected {
-    text-shadow:
-            -1px -1px 0 gold,
-            1px -1px 0 gold,
-            -1px 1px 0 gold,
-            1px 1px 0 gold;
+    text-shadow: -1px -1px 0 gold,
+    1px -1px 0 gold,
+    -1px 1px 0 gold,
+    1px 1px 0 gold;
     font-weight: bold;
 }
+
 @media (max-width: 600px) {
     .projectName {
         font-size: 22px;
     }
+
     .footer {
         padding: 0;
         line-height: 1;
     }
+
     .footerText {
         font-size: 20px;
     }

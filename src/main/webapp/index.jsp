@@ -23,14 +23,18 @@
             <img class="imgTennisRocket" src="/images/mainPictures/rockets.jpeg" alt="2 Tennis rockets image">
         </figure>
         <section class="buttonContainer">
-            <a class="buttonNewMatch" href="${pageContext.request.contextPath}/new-match" target="_self">Start a new match</a>
-            <a class="buttonMatches" href="${pageContext.request.contextPath}/matches?page=1" target="_self">View match results</a>
+            <a class="buttonNewMatch" href="${pageContext.request.contextPath}/new-match" target="_self">Start a new
+                match</a>
+            <a class="buttonMatches" href="${pageContext.request.contextPath}/matches?page=1" target="_self">View match
+                results</a>
         </section>
     </main>
 </div>
 <div class="footer">
     <footer>
-        <p class="footerText">Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap.</p>
+        <p class="footerText">Tennis Scoreboard, project from <a
+                href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a>
+            roadmap.</p>
     </footer>
 </div>
 </body>
