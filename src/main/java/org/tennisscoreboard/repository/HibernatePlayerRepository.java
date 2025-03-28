@@ -17,11 +17,11 @@ public class HibernatePlayerRepository {
             session.persist(player);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             if (!(e instanceof ConstraintViolationException)) {
                 throw new HibernateException("Error saving player " + player.getName());
+            }
+            if (transaction != null) {
+                transaction.rollback();
             }
         }
     }
@@ -36,9 +36,6 @@ public class HibernatePlayerRepository {
             player = query.getSingleResult();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error getting player " + name);
         }
         return player;

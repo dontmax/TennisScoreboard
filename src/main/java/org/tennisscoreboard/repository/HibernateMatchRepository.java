@@ -40,9 +40,6 @@ public class HibernateMatchRepository {
             matches = query.getResultList();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error getting matches");
         }
         return matches;
@@ -60,9 +57,6 @@ public class HibernateMatchRepository {
             matches = query.getResultList();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error getting matches");
         }
         return matches;
@@ -77,9 +71,6 @@ public class HibernateMatchRepository {
             matchCount = (Long) query.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error getting total matchCount");
         }
         return (matchCount == null) ? 0 : matchCount;
@@ -95,9 +86,6 @@ public class HibernateMatchRepository {
             matchCount = (Long) query.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error getting total MatchCount by player name");
         }
         return (matchCount == null) ? 0 : matchCount;
