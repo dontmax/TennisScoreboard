@@ -7,6 +7,6 @@ public class Validation {
     }
 
     public static boolean areNamesSame(String firstPlayerName, String secondPlayerName) {
-        return firstPlayerName.trim().equals(secondPlayerName.trim());
+        return firstPlayerName.trim().equalsIgnoreCase(secondPlayerName.trim());
     }
 }
