@@ -47,6 +47,7 @@ public class GameMath extends PointMath {
     protected void resetGames() {
         firstPlayerGames = 0;
         secondPlayerGames = 0;
+        resetPoints();
     }
 
     private boolean isGameOver() {

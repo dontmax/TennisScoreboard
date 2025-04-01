@@ -15,16 +15,16 @@ public class MatchScoreCalculationService {
 
     public void addPoints(int scoreWinnerId) {
         setMath.addPoints(scoreWinnerId);
+        setPointsToCurrentMatch();
         if(isMatchOver(
                 currentMatch.getFirstPlayerSets(),
                 currentMatch.getSecondPlayerSets()
         )) {
-            if(currentMatch.getFirstPlayer().getId() == scoreWinnerId) {
+            if (currentMatch.getFirstPlayer().getId() == scoreWinnerId) {
                 currentMatch.setWinner(currentMatch.getFirstPlayer());
             } else currentMatch.setWinner(currentMatch.getSecondPlayer());
             setMath.resetSets();
         }
-        setPointsToCurrentMatch();
     }
 
     private void setPointsToCurrentMatch() {
