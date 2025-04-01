@@ -34,12 +34,14 @@ public class FinishedMatchesPersistenceService {
             secondPlayer = playerRepository.getByName(session, currentMatch.getSecondPlayer().getName())
                     .orElseGet(()-> new Player (currentMatch.getSecondPlayer().getName()));
             if(firstPlayer.getId() ==null) {
-                playerRepository.save(firstPlayer);
+                playerRepository.save(session, firstPlayer);
             }
             if(secondPlayer.getId() ==null) {
-                playerRepository.save(secondPlayer);
+                playerRepository.save(session, secondPlayer);
             }
-            matchRepository.save(new Match(
+            matchRepository.save(
+                    session,
+                    new Match(
                     firstPlayer,
                     secondPlayer,
                     (firstPlayer.getName().equals(currentMatch.getFirstPlayer().getName()))?firstPlayer:secondPlayer

@@ -12,16 +12,10 @@ import java.util.List;
 
 public class HibernateMatchRepository {
 
-    public void save(Match match) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+    public void save(Session session, Match match) {
+        try {
             session.persist(match);
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new HibernateException("Error adding new match " + match);
         }
     }
