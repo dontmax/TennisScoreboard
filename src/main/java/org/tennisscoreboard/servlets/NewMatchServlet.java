@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.UUID;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,8 +16,11 @@ import org.tennisscoreboard.service.ValidationService;
 @WebServlet(name = "NewMatchServlet", value = "/new-match")
 public class NewMatchServlet extends HttpServlet {
     ValidationService validationService;
-
+    CurrentMatchesService currentMatchesService;
+    ServletContext servletContext;
     public void init() {
+        servletContext = getServletContext();
+        currentMatchesService = (CurrentMatchesService) servletContext.getAttribute("currentMatchesService");
         validationService = new ValidationService();
     }
 
@@ -42,7 +46,7 @@ public class NewMatchServlet extends HttpServlet {
             PlayerDTO player2 = new PlayerDTO(2, secondPlayerName);
             String match_id = UUID.randomUUID().toString();
             CurrentMatch currentMatch = new CurrentMatch(player1, player2);
-            CurrentMatchesService.add(match_id, currentMatch);
+            currentMatchesService.add(match_id, currentMatch);
             response.sendRedirect("/match-score?uuid=" + match_id);
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());

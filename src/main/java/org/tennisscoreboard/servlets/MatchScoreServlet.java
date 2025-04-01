@@ -18,22 +18,24 @@ import java.io.IOException;
 public class MatchScoreServlet extends HttpServlet {
     MatchScoreCalculationService matchScoreCalculationService;
     FinishedMatchesPersistenceService persistenceService;
+    CurrentMatchesService currentMatchesService;
     ServletContext servletContext;
 
     public void init() {
         servletContext = getServletContext();
+        currentMatchesService = (CurrentMatchesService) servletContext.getAttribute("currentMatchesService");
         persistenceService = (FinishedMatchesPersistenceService) servletContext.getAttribute("persistenceService");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String match_id = (request.getParameter("uuid"));
-        if (CurrentMatchesService.contains(match_id)) {
-            CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
+        if (currentMatchesService.contains(match_id)) {
+            CurrentMatch currentMatch = currentMatchesService.get(match_id);
             request.setAttribute("currentMatch", currentMatch);
             request.setAttribute("uuid", match_id);
             if (currentMatch.getWinner() != null) {
                 request.setAttribute("winner", currentMatch.getWinner().getName());
-                CurrentMatchesService.remove(match_id);
+                currentMatchesService.remove(match_id);
             }
             request.getRequestDispatcher("/match-score.jsp").forward(request, response);
         } else {
@@ -43,7 +45,7 @@ public class MatchScoreServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String match_id = (request.getParameter("uuid"));
-        CurrentMatch currentMatch = CurrentMatchesService.get(match_id);
+        CurrentMatch currentMatch = currentMatchesService.get(match_id);
         try {
             if (currentMatch != null && currentMatch.getWinner() == null) {
                 matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);

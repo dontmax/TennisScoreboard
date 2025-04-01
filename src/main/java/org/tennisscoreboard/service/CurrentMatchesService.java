@@ -4,24 +4,32 @@ import org.tennisscoreboard.models.CurrentMatch;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CurrentMatchesService {
 
-    static Map<String, CurrentMatch> currentMatches = new HashMap<>();
+    private static final CurrentMatchesService INSTANCE = new CurrentMatchesService();
+    private final ConcurrentHashMap<String, CurrentMatch> currentMatches = new ConcurrentHashMap<>();
 
-    public static void add(String matchId, CurrentMatch currentMatch) {
+    private CurrentMatchesService() {}
+
+    public static CurrentMatchesService getInstance() {
+        return INSTANCE;
+    }
+
+    public void add(String matchId, CurrentMatch currentMatch) {
         currentMatches.put(matchId, currentMatch);
     }
 
-    public static CurrentMatch get(String uuid) {
+    public CurrentMatch get(String uuid) {
         return currentMatches.get(uuid);
     }
 
-    public static void remove(String uuid) {
+    public void remove(String uuid) {
         currentMatches.remove(uuid);
     }
 
-    public static boolean contains(String matchId) {
+    public boolean contains(String matchId) {
         return currentMatches.containsKey(matchId);
     }
 }
