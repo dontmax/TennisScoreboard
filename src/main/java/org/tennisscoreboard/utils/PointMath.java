@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Point {
+public class PointMath {
 
     private int firstPlayerPoints = 0;
     private int secondPlayerPoints = 0;
     private String firstPlayerPointsView = "0";
     private String secondPlayerPointsView = "0";
 
-    protected Point(int firstPlayerPoints, int secondPlayerPoints) {
+    protected PointMath(int firstPlayerPoints, int secondPlayerPoints) {
         this.firstPlayerPoints = firstPlayerPoints;
         this.secondPlayerPoints = secondPlayerPoints;
     }

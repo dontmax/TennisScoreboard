@@ -1,27 +1,54 @@
 package org.tennisscoreboard.service;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.models.Match;
-import org.tennisscoreboard.models.MatchDTO;
+import org.tennisscoreboard.dto.FinishedMatchDTO;
+import org.tennisscoreboard.models.Player;
 import org.tennisscoreboard.repository.HibernateMatchRepository;
+import org.tennisscoreboard.repository.HibernatePlayerRepository;
+import org.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FinishedMatchesPersistenceService {
 
+    private final HibernatePlayerRepository playerRepository;
     private final HibernateMatchRepository matchRepository;
     private static final int TABLE_SIZE = 5;
 
-    public FinishedMatchesPersistenceService(HibernateMatchRepository matchRepository) {
+    public FinishedMatchesPersistenceService(HibernateMatchRepository matchRepository, HibernatePlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
         this.matchRepository = matchRepository;
     }
 
     public void save(CurrentMatch currentMatch) {
-        matchRepository.save(mapToMatch(currentMatch));
+        Player firstPlayer;
+        Player secondPlayer;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            firstPlayer = playerRepository.getByName(session, currentMatch.getFirstPlayer().getName())
+                    .orElseGet(()-> new Player (currentMatch.getFirstPlayer().getName()));
+            secondPlayer = playerRepository.getByName(session, currentMatch.getSecondPlayer().getName())
+                    .orElseGet(()-> new Player (currentMatch.getSecondPlayer().getName()));
+            if(firstPlayer.getId() ==null) {
+                playerRepository.save(firstPlayer);
+            }
+            if(secondPlayer.getId() ==null) {
+                playerRepository.save(secondPlayer);
+            }
+            matchRepository.save(new Match(
+                    firstPlayer,
+                    secondPlayer,
+                    (firstPlayer.getName().equals(currentMatch.getFirstPlayer().getName()))?firstPlayer:secondPlayer
+            ));
+            transaction.commit();
+        }
     }
 
-    public List<MatchDTO> getMatches(int pageNumber, String playerName) {
+    public List<FinishedMatchDTO> getMatches(int pageNumber, String playerName) {
         List<Match> matches;
         if (playerName == null || playerName.isBlank()) {
             matches = matchRepository.getMatches(pageNumber, TABLE_SIZE);
@@ -31,23 +58,17 @@ public class FinishedMatchesPersistenceService {
         return mapToMatchDTO(matches);
     }
 
-    private List<MatchDTO> mapToMatchDTO(List<Match> matches) {
-        List<MatchDTO> matchDTOs = new ArrayList<>();
+    private List<FinishedMatchDTO> mapToMatchDTO(List<Match> matches) {
+        List<FinishedMatchDTO> finishedMatchDTOs = new ArrayList<>();
         for (Match match : matches) {
-            matchDTOs.add(new MatchDTO(
+            finishedMatchDTOs.add(new FinishedMatchDTO(
                     match.getId(),
                     match.getFirstPlayer().getName(),
                     match.getSecondPlayer().getName(),
                     match.getWinner().getName()
             ));
         }
-        return matchDTOs;
+        return finishedMatchDTOs;
     }
 
-    private Match mapToMatch(CurrentMatch currentMatch) {
-        return new Match(
-                currentMatch.getFirstPlayer(),
-                currentMatch.getSecondPlayer(),
-                currentMatch.getWinner());
-    }
 }

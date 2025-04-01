@@ -2,8 +2,8 @@ package org.tennisscoreboard.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.tennisscoreboard.dto.PlayerDTO;
 import org.tennisscoreboard.models.CurrentMatch;
-import org.tennisscoreboard.models.Player;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class GameTest {
 
-    Game game;
+    GameMath game;
 
     @BeforeEach
     void setUp() {
-        game = new Game(new CurrentMatch(new Player(1,"firstPlayer"), new Player(2,"secondPlayer")));
+        game = new GameMath(new CurrentMatch(new PlayerDTO(1,"firstPlayer"), new PlayerDTO(2,"secondPlayer")));
     }
 
     @ParameterizedTest

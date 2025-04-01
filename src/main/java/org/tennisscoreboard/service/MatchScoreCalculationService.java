@@ -1,20 +1,46 @@
 package org.tennisscoreboard.service;
 
+import org.tennisscoreboard.utils.SetMath;
 import org.tennisscoreboard.models.CurrentMatch;
-import org.tennisscoreboard.utils.ScoreCalculator;
 
 public class MatchScoreCalculationService {
-    private final ScoreCalculator ScoreCalculator;
+    private static final int SETS_TO_WIN = 2;
+    private final SetMath setMath;
+    private final CurrentMatch currentMatch;
 
     public MatchScoreCalculationService(CurrentMatch currentMatch) {
-        ScoreCalculator = new ScoreCalculator(currentMatch);
+        this.currentMatch = currentMatch;
+        setMath = new SetMath(this.currentMatch);
     }
 
-    public void addPointsTo(int scoreWinnerId) {
-        ScoreCalculator.addPointsTo(scoreWinnerId);
+    public void addPoints(int scoreWinnerId) {
+        setMath.addPoints(scoreWinnerId);
+        if(isMatchOver(
+                currentMatch.getFirstPlayerSets(),
+                currentMatch.getSecondPlayerSets()
+        )) {
+            if(currentMatch.getFirstPlayer().getId() == scoreWinnerId) {
+                currentMatch.setWinner(currentMatch.getFirstPlayer());
+            } else currentMatch.setWinner(currentMatch.getSecondPlayer());
+            setMath.resetSets();
+        }
+        setPointsToCurrentMatch();
     }
 
-    public boolean isMatchOver() {
-        return ScoreCalculator.isMatchOver();
+    private void setPointsToCurrentMatch() {
+        currentMatch.setFirstPlayerPointsView(setMath.getFirstPlayerPointsView());
+        currentMatch.setSecondPlayerPointsView(setMath.getSecondPlayerPointsView());
+        currentMatch.setFirstPlayerPoints(setMath.getFirstPlayerPoints());
+        currentMatch.setSecondPlayerPoints(setMath.getSecondPlayerPoints());
+        currentMatch.setFirstPlayerGames(setMath.getFirstPlayerGames());
+        currentMatch.setSecondPlayerGames(setMath.getSecondPlayerGames());
+        currentMatch.setFirstPlayerSets(setMath.getFirstPlayerSets());
+        currentMatch.setSecondPlayerSets(setMath.getSecondPlayerSets());
     }
+
+    private boolean isMatchOver(int playerOneSets, int playerTwoSets) {
+        return playerOneSets == SETS_TO_WIN ||
+                playerTwoSets == SETS_TO_WIN;
+    }
+
 }

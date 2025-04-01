@@ -2,14 +2,15 @@ package org.tennisscoreboard.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.tennisscoreboard.dto.PlayerDTO;
 
 @Getter
 @Setter
 public class CurrentMatch {
 
-    private Player firstPlayer;
-    private Player secondPlayer;
-    private Player winner;
+    private PlayerDTO firstPlayer;
+    private PlayerDTO secondPlayer;
+    private PlayerDTO winner;
     private int firstPlayerPoints;
     private int secondPlayerPoints;
     private String firstPlayerPointsView;
@@ -19,7 +20,7 @@ public class CurrentMatch {
     private int firstPlayerSets;
     private int secondPlayerSets;
 
-    public CurrentMatch(Player firstPlayer, Player secondPlayer) {
+    public CurrentMatch(PlayerDTO firstPlayer, PlayerDTO secondPlayer) {
         this();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;

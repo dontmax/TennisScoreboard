@@ -7,19 +7,16 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.tennisscoreboard.dto.PlayerDTO;
 import org.tennisscoreboard.models.CurrentMatch;
-import org.tennisscoreboard.models.Player;
-import org.tennisscoreboard.repository.HibernatePlayerRepository;
 import org.tennisscoreboard.service.CurrentMatchesService;
 import org.tennisscoreboard.service.ValidationService;
 
 @WebServlet(name = "NewMatchServlet", value = "/new-match")
 public class NewMatchServlet extends HttpServlet {
-    HibernatePlayerRepository playerRepo;
     ValidationService validationService;
 
     public void init() {
-        playerRepo = new HibernatePlayerRepository();
         validationService = new ValidationService();
     }
 
@@ -41,12 +38,10 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
         try {
-            playerRepo.save(new Player(firstPlayerName));
-            playerRepo.save(new Player(secondPlayerName));
-            Player firstPlayer = playerRepo.getByName(firstPlayerName);
-            Player secondPlayer = playerRepo.getByName(secondPlayerName);
+            PlayerDTO player1 = new PlayerDTO(1, firstPlayerName);
+            PlayerDTO player2 = new PlayerDTO(2, secondPlayerName);
             String match_id = UUID.randomUUID().toString();
-            CurrentMatch currentMatch = new CurrentMatch(firstPlayer, secondPlayer);
+            CurrentMatch currentMatch = new CurrentMatch(player1, player2);
             CurrentMatchesService.add(match_id, currentMatch);
             response.sendRedirect("/match-score?uuid=" + match_id);
         } catch (Exception e) {

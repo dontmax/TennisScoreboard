@@ -6,11 +6,14 @@ import org.tennisscoreboard.models.CurrentMatch;
 
 @Getter
 @Setter
-public class Game extends Point {
+public class GameMath extends PointMath {
     private int firstPlayerGames = 0;
     private int secondPlayerGames = 0;
+    private static final int MIN_DIFFERENCE = 2;
+    private static final int POINTS_TO_WIN = 4;
+    private static final int POINTS_TO_WIN_TIEBREAK = 7;
 
-    protected Game(CurrentMatch currentMatch) {
+    protected GameMath(CurrentMatch currentMatch) {
         super(currentMatch.getFirstPlayerPoints(), currentMatch.getSecondPlayerPoints());
         this.firstPlayerGames = currentMatch.getFirstPlayerGames();
         this.secondPlayerGames = currentMatch.getSecondPlayerGames();
@@ -47,12 +50,12 @@ public class Game extends Point {
     }
 
     private boolean isGameOver() {
-        return (getFirstPlayerPoints() >= 4 && (getFirstPlayerPoints() - getSecondPlayerPoints()) >= 2) ||
-                (getSecondPlayerPoints() >= 4 && (getSecondPlayerPoints() - getFirstPlayerPoints()) >= 2);
+        return (getFirstPlayerPoints() >= POINTS_TO_WIN && (getFirstPlayerPoints() - getSecondPlayerPoints()) >= MIN_DIFFERENCE) ||
+                (getSecondPlayerPoints() >= POINTS_TO_WIN && (getSecondPlayerPoints() - getFirstPlayerPoints()) >= MIN_DIFFERENCE);
     }
 
     private boolean isTiebreakGameOver() {
-        return (getFirstPlayerPoints() >= 7 && (getFirstPlayerPoints() - getSecondPlayerPoints()) >= 2) ||
-                (getSecondPlayerPoints() >= 7 && (getSecondPlayerPoints() - getFirstPlayerPoints()) >= 2);
+        return (getFirstPlayerPoints() >= POINTS_TO_WIN_TIEBREAK && (getFirstPlayerPoints() - getSecondPlayerPoints()) >= MIN_DIFFERENCE) ||
+                (getSecondPlayerPoints() >= POINTS_TO_WIN_TIEBREAK && (getSecondPlayerPoints() - getFirstPlayerPoints()) >= MIN_DIFFERENCE);
     }
 }

@@ -47,8 +47,8 @@ public class MatchScoreServlet extends HttpServlet {
         try {
             if (currentMatch != null && currentMatch.getWinner() == null) {
                 matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);
-                matchScoreCalculationService.addPointsTo(Integer.parseInt(request.getParameter("scoreWinnerId")));
-                if (matchScoreCalculationService.isMatchOver()) {
+                matchScoreCalculationService.addPoints(Integer.parseInt(request.getParameter("scoreWinnerId")));
+                if (currentMatch.getWinner()!=null) {
                     persistenceService.save(currentMatch);
                 }
             }

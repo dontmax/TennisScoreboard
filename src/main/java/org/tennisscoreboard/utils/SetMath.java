@@ -6,11 +6,14 @@ import org.tennisscoreboard.models.CurrentMatch;
 
 @Getter
 @Setter
-public class Set extends Game {
+public class SetMath extends GameMath {
     private int firstPlayerSets = 0;
     private int secondPlayerSets = 0;
+    private static final int MIN_DIFFERENCE = 2;
+    private static final int GAMES_TO_WIN = 6;
+    private static final int GAMES_TO_WIN_TIEBREAK = 7;
 
-    public Set(CurrentMatch currentMatch) {
+    public SetMath(CurrentMatch currentMatch) {
         super(currentMatch);
         this.firstPlayerSets = currentMatch.getFirstPlayerSets();
         this.secondPlayerSets = currentMatch.getSecondPlayerSets();
@@ -34,9 +37,9 @@ public class Set extends Game {
     }
 
     public boolean isSetOver() {
-        return (getFirstPlayerGames() >= 6 && getFirstPlayerGames() - getSecondPlayerGames() >= 2) ||
-                (getSecondPlayerGames() >= 6 && getSecondPlayerGames() - getFirstPlayerGames() >= 2) ||
-                (getFirstPlayerGames() == 7 && getSecondPlayerGames() == 6) ||
-                (getFirstPlayerGames() == 6 && getSecondPlayerGames() == 7);
+        return (getFirstPlayerGames() >= GAMES_TO_WIN && getFirstPlayerGames() - getSecondPlayerGames() >= MIN_DIFFERENCE) ||
+                (getSecondPlayerGames() >= GAMES_TO_WIN && getSecondPlayerGames() - getFirstPlayerGames() >= MIN_DIFFERENCE) ||
+                (getFirstPlayerGames() == GAMES_TO_WIN_TIEBREAK) ||
+                (getSecondPlayerGames() == GAMES_TO_WIN_TIEBREAK);
     }
 }

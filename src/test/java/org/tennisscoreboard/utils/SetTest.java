@@ -3,8 +3,8 @@ package org.tennisscoreboard.utils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.tennisscoreboard.dto.PlayerDTO;
 import org.tennisscoreboard.models.CurrentMatch;
-import org.tennisscoreboard.models.Player;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class SetTest {
 
-    Set set;
+    SetMath set;
 
     SetTest (TestInfo testInfo) {
         System.out.println(testInfo.getDisplayName());
@@ -21,7 +21,7 @@ public class SetTest {
 
     @BeforeEach
     void  setup(){
-        set = new Set(new CurrentMatch(new Player(1,"firstPlayer"),new Player(2,"secondPlayer")));
+        set = new SetMath(new CurrentMatch(new PlayerDTO(1,"firstPlayer"),new PlayerDTO(2,"secondPlayer")));
         set.setFirstPlayerGames(6);
         set.setSecondPlayerGames(6);
     }

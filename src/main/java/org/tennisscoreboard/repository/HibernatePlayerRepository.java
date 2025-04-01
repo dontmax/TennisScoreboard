@@ -1,12 +1,16 @@
 package org.tennisscoreboard.repository;
 
+import jakarta.persistence.NoResultException;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.HibernateException;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.tennisscoreboard.models.Player;
 import org.hibernate.Session;
 import org.tennisscoreboard.utils.HibernateUtil;
+
+import java.util.Optional;
 
 public class HibernatePlayerRepository {
 
@@ -39,6 +43,20 @@ public class HibernatePlayerRepository {
             throw new HibernateException("Error getting player " + name);
         }
         return player;
+    }
+
+    public Optional<Player> getByName(Session session, String name) {
+        Player player;
+        try {
+            Query<Player> query = session.createQuery("from Player where name = :name", Player.class);
+            query.setParameter("name", name);
+            player = query.getSingleResult();
+        } catch (NoResultException e) {
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new HibernateException("Database failure on getting player with name " + name, e);
+        }
+        return Optional.ofNullable(player);
     }
 
 }

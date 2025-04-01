@@ -6,16 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.tennisscoreboard.models.MatchDTO;
-import org.tennisscoreboard.repository.HibernateMatchRepository;
-import org.tennisscoreboard.repository.HibernatePlayerRepository;
 import org.tennisscoreboard.service.FinishedMatchesPersistenceService;
 import org.tennisscoreboard.service.PaginationService;
-import org.tennisscoreboard.utils.Pagination;
 import org.tennisscoreboard.utils.Validation;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "PlayedMatchesServlet", value = "/matches")
 public class MatchesServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package org.tennisscoreboard.models;
+package org.tennisscoreboard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MatchDTO {
+public class FinishedMatchDTO {
 
     private int id;
     private String firstPlayerName;
