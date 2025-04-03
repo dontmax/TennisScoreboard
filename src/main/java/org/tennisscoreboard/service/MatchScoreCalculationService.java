@@ -1,46 +1,54 @@
 package org.tennisscoreboard.service;
 
+import org.tennisscoreboard.models.*;
 import org.tennisscoreboard.utils.SetMath;
-import org.tennisscoreboard.models.CurrentMatch;
 
 public class MatchScoreCalculationService {
     private static final int SETS_TO_WIN = 2;
-    private final SetMath setMath;
-    private final CurrentMatch currentMatch;
+    private static final int PLAYER_ONE = 1;
 
-    public MatchScoreCalculationService(CurrentMatch currentMatch) {
-        this.currentMatch = currentMatch;
-        setMath = new SetMath(this.currentMatch);
-    }
+    private MatchScoreCalculationService() {}
 
-    public void addPoints(int scoreWinnerId) {
-        setMath.addPoints(scoreWinnerId);
-        setPointsToCurrentMatch();
-        if(isMatchOver(
-                currentMatch.getFirstPlayerSets(),
-                currentMatch.getSecondPlayerSets()
-        )) {
-            if (currentMatch.getFirstPlayer().getId() == scoreWinnerId) {
+    public static void addPoints(CurrentMatch currentMatch, int scoreWinnerId) {
+        SetScore setScore;
+        setScore = SetMath.addPoints(mapToSetScore(currentMatch.getScore()), scoreWinnerId);
+        boolean isMatchOver = isMatchOver(setScore.player1Sets(), setScore.player2Sets());
+        if(isMatchOver) {
+            if(scoreWinnerId==PLAYER_ONE) {
                 currentMatch.setWinner(currentMatch.getFirstPlayer());
-            } else currentMatch.setWinner(currentMatch.getSecondPlayer());
-            setMath.resetSets();
+            } else {
+                currentMatch.setWinner(currentMatch.getSecondPlayer());
+            }
         }
+        setPointsToCurrentMatch(currentMatch, isMatchOver?SetMath.resetSets1():setScore);
     }
 
-    private void setPointsToCurrentMatch() {
-        currentMatch.setFirstPlayerPointsView(setMath.getFirstPlayerPointsView());
-        currentMatch.setSecondPlayerPointsView(setMath.getSecondPlayerPointsView());
-        currentMatch.setFirstPlayerPoints(setMath.getFirstPlayerPoints());
-        currentMatch.setSecondPlayerPoints(setMath.getSecondPlayerPoints());
-        currentMatch.setFirstPlayerGames(setMath.getFirstPlayerGames());
-        currentMatch.setSecondPlayerGames(setMath.getSecondPlayerGames());
-        currentMatch.setFirstPlayerSets(setMath.getFirstPlayerSets());
-        currentMatch.setSecondPlayerSets(setMath.getSecondPlayerSets());
+    private static SetScore mapToSetScore(MatchScore matchScore) {
+        return new SetScore(
+                new GameScore(
+                        new PointScore(matchScore.getFirstPlayerPoints(), matchScore.getSecondPlayerPoints()),
+                        matchScore.isTiebreak(),
+                        matchScore.getFirstPlayerGames(),
+                        matchScore.getSecondPlayerGames()),
+                matchScore.getFirstPlayerSets(),
+                matchScore.getSecondPlayerSets()
+        );
     }
 
-    private boolean isMatchOver(int playerOneSets, int playerTwoSets) {
-        return playerOneSets == SETS_TO_WIN ||
-                playerTwoSets == SETS_TO_WIN;
+    private static boolean isMatchOver(int player1Sets, int player2Sets) {
+        return player1Sets == SETS_TO_WIN ||
+               player2Sets == SETS_TO_WIN;
+    }
+
+    private static void setPointsToCurrentMatch(CurrentMatch currentMatch, SetScore setScore) {
+        MatchScore matchScore = currentMatch.getScore();
+        matchScore.setFirstPlayerPoints(setScore.gameScore().pointScore().player1Points());
+        matchScore.setSecondPlayerPoints(setScore.gameScore().pointScore().player2Points());
+        matchScore.setTiebreak(setScore.gameScore().tiebreak());
+        matchScore.setFirstPlayerGames(setScore.gameScore().player1Games());
+        matchScore.setSecondPlayerGames(setScore.gameScore().player2Games());
+        matchScore.setFirstPlayerSets(setScore.player1Sets());
+        matchScore.setSecondPlayerSets(setScore.player2Sets());
     }
 
 }

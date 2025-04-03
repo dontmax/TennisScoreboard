@@ -3,12 +3,9 @@ package org.tennisscoreboard.repository;
 import jakarta.persistence.NoResultException;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.HibernateException;
-import org.hibernate.NonUniqueResultException;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.tennisscoreboard.models.Player;
+import org.tennisscoreboard.entity.Player;
 import org.hibernate.Session;
-import org.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.Optional;
 

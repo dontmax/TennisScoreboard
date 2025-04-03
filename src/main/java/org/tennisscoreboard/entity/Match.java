@@ -1,4 +1,4 @@
-package org.tennisscoreboard.models;
+package org.tennisscoreboard.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

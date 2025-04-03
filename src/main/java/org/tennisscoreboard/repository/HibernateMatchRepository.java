@@ -4,7 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.tennisscoreboard.models.Match;
+import org.tennisscoreboard.entity.Match;
 import org.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.ArrayList;

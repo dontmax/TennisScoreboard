@@ -16,7 +16,6 @@ import java.io.IOException;
 
 @WebServlet(name = "MatchScoreServlet", value = "/match-score")
 public class MatchScoreServlet extends HttpServlet {
-    MatchScoreCalculationService matchScoreCalculationService;
     FinishedMatchesPersistenceService persistenceService;
     CurrentMatchesService currentMatchesService;
     ServletContext servletContext;
@@ -48,9 +47,8 @@ public class MatchScoreServlet extends HttpServlet {
         CurrentMatch currentMatch = currentMatchesService.get(match_id);
         try {
             if (currentMatch != null && currentMatch.getWinner() == null) {
-                matchScoreCalculationService = new MatchScoreCalculationService(currentMatch);
-                matchScoreCalculationService.addPoints(Integer.parseInt(request.getParameter("scoreWinnerId")));
-                if (currentMatch.getWinner()!=null) {
+                MatchScoreCalculationService.addPoints(currentMatch, Integer.parseInt(request.getParameter("scoreWinnerId")));
+                if (currentMatch.getWinner() != null) {
                     persistenceService.save(currentMatch);
                 }
             }

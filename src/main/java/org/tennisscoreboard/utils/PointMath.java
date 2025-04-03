@@ -2,72 +2,52 @@ package org.tennisscoreboard.utils;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.tennisscoreboard.models.PointScore;
 
 @Getter
 @Setter
 public class PointMath {
 
-    private int firstPlayerPoints = 0;
-    private int secondPlayerPoints = 0;
-    private String firstPlayerPointsView = "0";
-    private String secondPlayerPointsView = "0";
+    private static final int DEUCE =4;
 
-    protected PointMath(int firstPlayerPoints, int secondPlayerPoints) {
-        this.firstPlayerPoints = firstPlayerPoints;
-        this.secondPlayerPoints = secondPlayerPoints;
-    }
+    private PointMath() {}
 
-    protected void addPoints(int pointsTo) {
-        if (pointsTo == 1) {
-            firstPlayerPoints++;
-        } else if (pointsTo == 2) {
-            secondPlayerPoints++;
+    public static PointScore addPoints(PointScore pointScore, int scoreWinnerId) {
+        int player1Points = pointScore.player1Points();
+        int player2Points = pointScore.player2Points();
+
+        if(scoreWinnerId == 1) {
+            player1Points++;
+        } else {
+            player2Points++;
         }
-        if (firstPlayerPoints == 4 && secondPlayerPoints == 4) {
-            firstPlayerPoints--;
-            secondPlayerPoints--;
+        if(player1Points ==DEUCE && player2Points==DEUCE) {
+            player1Points--;
+            player2Points--;
         }
-        setPointsView(firstPlayerPoints, secondPlayerPoints);
+
+        return new PointScore(
+                player1Points,
+                player2Points
+        );
     }
 
-    protected void addTiebreakPoints(int pointsTo) {
-        if (pointsTo == 1) {
-            firstPlayerPoints++;
-        } else if (pointsTo == 2) {
-            secondPlayerPoints++;
+    public static PointScore  addTiebreakPoints(PointScore pointScore, int scoreWinnerId) {
+        int player1Points = pointScore.player1Points();
+        int player2Points = pointScore.player2Points();
+        if(scoreWinnerId == 1) {
+            player1Points++;
+        } else {
+            player2Points++;
         }
-        setTiebreakPointsView(firstPlayerPoints, secondPlayerPoints);
+        return new PointScore(
+                player1Points,
+                player2Points
+        );
     }
 
-    private void setPointsView(int firstPlayerPoints, int secondPlayerPoints) {
-        firstPlayerPointsView = setPointsView(firstPlayerPoints);
-        secondPlayerPointsView = setPointsView(secondPlayerPoints);
+    public static PointScore resetPoints() {
+        return new PointScore(0,0);
     }
 
-    private String setPointsView(int playerPoints) {
-        return switch (playerPoints) {
-            case 0 -> "0";
-            case 1 -> "15";
-            case 2 -> "30";
-            case 3 -> "40";
-            case 4 -> "AD";
-            default -> "";
-        };
-    }
-
-    private void setTiebreakPointsView(int firstPlayerPoints, int secondPlayerPoints) {
-        firstPlayerPointsView = setTiebreakPointsView(firstPlayerPoints);
-        secondPlayerPointsView = setTiebreakPointsView(secondPlayerPoints);
-    }
-
-    private String setTiebreakPointsView(int playerPoints) {
-        return playerPoints + "";
-    }
-
-    protected void resetPoints() {
-        firstPlayerPoints = 0;
-        secondPlayerPoints = 0;
-        firstPlayerPointsView = "0";
-        secondPlayerPointsView = "0";
-    }
 }

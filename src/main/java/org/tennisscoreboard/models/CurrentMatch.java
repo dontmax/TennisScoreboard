@@ -8,33 +8,18 @@ import org.tennisscoreboard.dto.PlayerDTO;
 @Setter
 public class CurrentMatch {
 
-    private PlayerDTO firstPlayer;
-    private PlayerDTO secondPlayer;
+    private final PlayerDTO firstPlayer;
+    private final PlayerDTO secondPlayer;
     private PlayerDTO winner;
-    private int firstPlayerPoints;
-    private int secondPlayerPoints;
-    private String firstPlayerPointsView;
-    private String secondPlayerPointsView;
-    private int firstPlayerGames;
-    private int secondPlayerGames;
-    private int firstPlayerSets;
-    private int secondPlayerSets;
+    MatchScore score;
 
     public CurrentMatch(PlayerDTO firstPlayer, PlayerDTO secondPlayer) {
-        this();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-
+        score = new MatchScore();
     }
 
-    public CurrentMatch() {
-        this.firstPlayerPoints = 0;
-        this.secondPlayerPoints = 0;
-        this.firstPlayerPointsView = "0";
-        this.secondPlayerPointsView = "0";
-        this.firstPlayerGames = 0;
-        this.secondPlayerGames = 0;
-        this.firstPlayerSets = 0;
-        this.secondPlayerSets = 0;
-    }
+
+
+
 }

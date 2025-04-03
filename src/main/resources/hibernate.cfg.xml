@@ -23,7 +23,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Указание классов сущностей -->
-        <mapping class="org.tennisscoreboard.models.Player"/>
-        <mapping class="org.tennisscoreboard.models.Match"/>
+        <mapping class="org.tennisscoreboard.entity.Player"/>
+        <mapping class="org.tennisscoreboard.entity.Match"/>
     </session-factory>
 </hibernate-configuration>

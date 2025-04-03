@@ -49,9 +49,9 @@
                 <tr class="firstPlayer">
                     <form action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" method="POST">
                         <td>${currentMatch.getFirstPlayer().getName()}</td>
-                        <td>${currentMatch.getFirstPlayerSets()}</td>
-                        <td>${currentMatch.getFirstPlayerGames()}</td>
-                        <td>${currentMatch.getFirstPlayerPointsView()}</td>
+                        <td>${currentMatch.getScore().getFirstPlayerSets()}</td>
+                        <td>${currentMatch.getScore().getFirstPlayerGames()}</td>
+                        <td>${currentMatch.getScore().getPointsView(1)}</td>
                         <input type="hidden" name="scoreWinnerId" value="${currentMatch.getFirstPlayer().getId()}">
                         <td><input class="buttonScore" type="submit" value="Score"></td>
                     </form>
@@ -59,9 +59,9 @@
                 <tr class="secondPlayer">
                     <form action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" method="POST">
                         <td>${currentMatch.getSecondPlayer().getName()}</td>
-                        <td>${currentMatch.getSecondPlayerSets()}</td>
-                        <td>${currentMatch.getSecondPlayerGames()}</td>
-                        <td>${currentMatch.getSecondPlayerPointsView()}</td>
+                        <td>${currentMatch.getScore().getSecondPlayerSets()}</td>
+                        <td>${currentMatch.getScore().getSecondPlayerGames()}</td>
+                        <td>${currentMatch.getScore().getPointsView(2)}</td>
                         <input type="hidden" name="scoreWinnerId" value="${currentMatch.getSecondPlayer().getId()}">
                         <td><input class="buttonScore" type="submit" value="Score"></td>
                     </form>
