@@ -4,13 +4,12 @@ import org.tennisscoreboard.utils.Validation;
 
 public class ValidationService {
     private static final String NAMING_RULE = " Player name must begin with uppercase letter, max length: 25 symbols, not \"";
-    private static String errorMessage;
 
-    public ValidationService() {
-    }
+    private ValidationService() {}
 
-    public boolean validateNames(String firstPlayerName, String secondPlayerName) {
+    public static String validateNames(String firstPlayerName, String secondPlayerName) {
         boolean validation = true;
+        String errorMessage="";
         if (!Validation.isName(firstPlayerName)) {
             errorMessage = "First" + NAMING_RULE + firstPlayerName + "\"";
             validation = false;
@@ -21,12 +20,8 @@ public class ValidationService {
         }
         if (validation && Validation.areNamesSame(firstPlayerName, secondPlayerName)) {
             errorMessage = "Names can't be the same";
-            validation = false;
         }
-        return validation;
-    }
-
-    public String getErrorMessage() {
         return errorMessage;
     }
+
 }

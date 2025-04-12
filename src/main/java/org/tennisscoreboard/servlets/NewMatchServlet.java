@@ -15,14 +15,12 @@ import org.tennisscoreboard.service.ValidationService;
 
 @WebServlet(name = "NewMatchServlet", value = "/new-match")
 public class NewMatchServlet extends HttpServlet {
-    ValidationService validationService;
     CurrentMatchesService currentMatchesService;
     ServletContext servletContext;
 
     public void init() {
         servletContext = getServletContext();
         currentMatchesService = (CurrentMatchesService) servletContext.getAttribute("currentMatchesService");
-        validationService = new ValidationService();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,8 +35,9 @@ public class NewMatchServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String firstPlayerName = request.getParameter("firstPlayerName");
         String secondPlayerName = request.getParameter("secondPlayerName");
-        if (!validationService.validateNames(firstPlayerName, secondPlayerName)) {
-            request.setAttribute("message", validationService.getErrorMessage());
+        String validationResult = ValidationService.validateNames(firstPlayerName, secondPlayerName);
+        if (!validationResult.isBlank()) {
+            request.setAttribute("message", validationResult);
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
         }
