@@ -4,8 +4,8 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import org.tennisscoreboard.repository.HibernateMatchRepository;
-import org.tennisscoreboard.repository.HibernatePlayerRepository;
+import org.tennisscoreboard.repository.MatchRepository;
+import org.tennisscoreboard.repository.PlayerRepository;
 import org.tennisscoreboard.service.CurrentMatchesService;
 import org.tennisscoreboard.service.FinishedMatchesPersistenceService;
 import org.tennisscoreboard.service.PaginationService;
@@ -15,8 +15,8 @@ public class ApplicationInitializer implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         CurrentMatchesService currentMatchesService = CurrentMatchesService.getInstance();
-        HibernateMatchRepository matchRepository = new HibernateMatchRepository();
-        HibernatePlayerRepository playerRepository = new HibernatePlayerRepository();
+        MatchRepository matchRepository = new MatchRepository();
+        PlayerRepository playerRepository = new PlayerRepository();
         FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService(matchRepository, playerRepository);
         PaginationService paginationService = new PaginationService(matchRepository);
 

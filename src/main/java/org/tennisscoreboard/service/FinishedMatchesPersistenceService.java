@@ -6,8 +6,8 @@ import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.entity.Match;
 import org.tennisscoreboard.dto.FinishedMatchDTO;
 import org.tennisscoreboard.entity.Player;
-import org.tennisscoreboard.repository.HibernateMatchRepository;
-import org.tennisscoreboard.repository.HibernatePlayerRepository;
+import org.tennisscoreboard.repository.MatchRepository;
+import org.tennisscoreboard.repository.PlayerRepository;
 import org.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class FinishedMatchesPersistenceService {
 
-    private final HibernatePlayerRepository playerRepository;
-    private final HibernateMatchRepository matchRepository;
+    private final PlayerRepository playerRepository;
+    private final MatchRepository matchRepository;
     private static final int TABLE_SIZE = 5;
 
-    public FinishedMatchesPersistenceService(HibernateMatchRepository matchRepository, HibernatePlayerRepository playerRepository) {
+    public FinishedMatchesPersistenceService(MatchRepository matchRepository, PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
         this.matchRepository = matchRepository;
     }

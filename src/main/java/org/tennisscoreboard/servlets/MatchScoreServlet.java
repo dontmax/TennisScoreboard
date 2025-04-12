@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.tennisscoreboard.models.CurrentMatch;
-import org.tennisscoreboard.repository.HibernateMatchRepository;
 import org.tennisscoreboard.service.FinishedMatchesPersistenceService;
 import org.tennisscoreboard.service.MatchScoreCalculationService;
 import org.tennisscoreboard.service.CurrentMatchesService;

@@ -3,14 +3,13 @@ package org.tennisscoreboard.repository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.tennisscoreboard.entity.Match;
 import org.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HibernateMatchRepository {
+public class MatchRepository {
 
     public void save(Session session, Match match) {
         try {
@@ -25,13 +24,12 @@ public class HibernateMatchRepository {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query<Match> query = session.createQuery("FROM Match m " +
-                    "WHERE m.firstPlayer.name LIKE :playerName OR m.secondPlayer.name LIKE :playerName order by m.id desc", Match.class);
-            query.setParameter("playerName", playerName + "%");
-            int firstResult = pageNumber * 5;
-            query.setFirstResult(firstResult);
-            query.setMaxResults(tableSize);
-            matches = query.getResultList();
+            matches = session.createQuery("FROM Match m " +
+                            "WHERE m.firstPlayer.name LIKE :playerName OR m.secondPlayer.name LIKE :playerName order by m.id desc", Match.class)
+                    .setParameter("playerName", "%" + playerName + "%")
+                    .setFirstResult(pageNumber * tableSize)
+                    .setMaxResults(tableSize)
+                    .getResultList();
             transaction.commit();
         } catch (Exception e) {
             throw new HibernateException("Error getting matches");
@@ -44,11 +42,9 @@ public class HibernateMatchRepository {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query<Match> query = session.createQuery("from Match m ORDER BY m.id desc", Match.class);
-            int firstResult = pageNumber * 5;
-            query.setFirstResult(firstResult);
-            query.setMaxResults(tableSize);
-            matches = query.getResultList();
+            matches = session.createQuery("from Match m ORDER BY m.id desc", Match.class)
+                    .setFirstResult(pageNumber * tableSize)
+                    .setMaxResults(tableSize).getResultList();
             transaction.commit();
         } catch (Exception e) {
             throw new HibernateException("Error getting matches");
@@ -61,8 +57,8 @@ public class HibernateMatchRepository {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("select count(*) from Match");
-            matchCount = (Long) query.uniqueResult();
+            matchCount = (Long) session.createQuery("select count(*) from Match")
+                    .uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             throw new HibernateException("Error getting total matchCount");
@@ -75,9 +71,9 @@ public class HibernateMatchRepository {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("select count(*) from Match where firstPlayer.name LIKE :playerName or secondPlayer.name LIKE :playerName");
-            query.setParameter("playerName", playerName + "%");
-            matchCount = (Long) query.uniqueResult();
+            matchCount = (Long) session.createQuery("select count(*) from Match where firstPlayer.name LIKE :playerName or secondPlayer.name LIKE :playerName")
+                    .setParameter("playerName", "%" + playerName + "%")
+                    .uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             throw new HibernateException("Error getting total MatchCount by player name");

@@ -1,13 +1,13 @@
 package org.tennisscoreboard.service;
 
-import org.tennisscoreboard.repository.HibernateMatchRepository;
+import org.tennisscoreboard.repository.MatchRepository;
 import org.tennisscoreboard.utils.Pagination;
 
 public class PaginationService {
 
-    private final HibernateMatchRepository matchRepository;
+    private final MatchRepository matchRepository;
 
-    public PaginationService(HibernateMatchRepository matchRepository) {
+    public PaginationService(MatchRepository matchRepository) {
         this.matchRepository = matchRepository;
     }
 

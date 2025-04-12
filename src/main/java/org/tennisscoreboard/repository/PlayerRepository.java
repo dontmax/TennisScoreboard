@@ -9,7 +9,7 @@ import org.hibernate.Session;
 
 import java.util.Optional;
 
-public class HibernatePlayerRepository {
+public class PlayerRepository {
 
     public void save(Session session, Player player) {
         try {
