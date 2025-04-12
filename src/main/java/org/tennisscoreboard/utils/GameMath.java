@@ -18,7 +18,8 @@ public class GameMath {
     private static final boolean TIEBREAK_GOING = true;
     private static final boolean CLASSIC_GAME = false;
 
-    private GameMath () {}
+    private GameMath() {
+    }
 
     public static GameScore addPoints(GameScore gameScore, int scoreWinnerId) {
         PointScore pointScore;

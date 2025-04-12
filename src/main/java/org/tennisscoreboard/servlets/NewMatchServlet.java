@@ -18,6 +18,7 @@ public class NewMatchServlet extends HttpServlet {
     ValidationService validationService;
     CurrentMatchesService currentMatchesService;
     ServletContext servletContext;
+
     public void init() {
         servletContext = getServletContext();
         currentMatchesService = (CurrentMatchesService) servletContext.getAttribute("currentMatchesService");

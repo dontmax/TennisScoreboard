@@ -7,20 +7,21 @@ public class MatchScoreCalculationService {
     private static final int SETS_TO_WIN = 2;
     private static final int PLAYER_ONE = 1;
 
-    private MatchScoreCalculationService() {}
+    private MatchScoreCalculationService() {
+    }
 
     public static void addPoints(CurrentMatch currentMatch, int scoreWinnerId) {
         SetScore setScore;
         setScore = SetMath.addPoints(mapToSetScore(currentMatch.getScore()), scoreWinnerId);
         boolean isMatchOver = isMatchOver(setScore.player1Sets(), setScore.player2Sets());
-        if(isMatchOver) {
-            if(scoreWinnerId==PLAYER_ONE) {
+        if (isMatchOver) {
+            if (scoreWinnerId == PLAYER_ONE) {
                 currentMatch.setWinner(currentMatch.getFirstPlayer());
             } else {
                 currentMatch.setWinner(currentMatch.getSecondPlayer());
             }
         }
-        setPointsToCurrentMatch(currentMatch, isMatchOver?SetMath.resetSets1():setScore);
+        setPointsToCurrentMatch(currentMatch, isMatchOver ? SetMath.resetSets1() : setScore);
     }
 
     private static SetScore mapToSetScore(MatchScore matchScore) {
@@ -37,7 +38,7 @@ public class MatchScoreCalculationService {
 
     private static boolean isMatchOver(int player1Sets, int player2Sets) {
         return player1Sets == SETS_TO_WIN ||
-               player2Sets == SETS_TO_WIN;
+                player2Sets == SETS_TO_WIN;
     }
 
     private static void setPointsToCurrentMatch(CurrentMatch currentMatch, SetScore setScore) {

@@ -8,34 +8,33 @@ import org.tennisscoreboard.models.PointScore;
 @Setter
 public class PointMath {
 
-    private static final int DEUCE =4;
+    private static final int DEUCE = 4;
 
-    private PointMath() {}
+    private PointMath() {
+    }
 
     public static PointScore addPoints(PointScore pointScore, int scoreWinnerId) {
         int player1Points = pointScore.player1Points();
         int player2Points = pointScore.player2Points();
-
-        if(scoreWinnerId == 1) {
+        if (scoreWinnerId == 1) {
             player1Points++;
         } else {
             player2Points++;
         }
-        if(player1Points ==DEUCE && player2Points==DEUCE) {
+        if (player1Points == DEUCE && player2Points == DEUCE) {
             player1Points--;
             player2Points--;
         }
-
         return new PointScore(
                 player1Points,
                 player2Points
         );
     }
 
-    public static PointScore  addTiebreakPoints(PointScore pointScore, int scoreWinnerId) {
+    public static PointScore addTiebreakPoints(PointScore pointScore, int scoreWinnerId) {
         int player1Points = pointScore.player1Points();
         int player2Points = pointScore.player2Points();
-        if(scoreWinnerId == 1) {
+        if (scoreWinnerId == 1) {
             player1Points++;
         } else {
             player2Points++;
@@ -47,7 +46,7 @@ public class PointMath {
     }
 
     public static PointScore resetPoints() {
-        return new PointScore(0,0);
+        return new PointScore(0, 0);
     }
 
 }

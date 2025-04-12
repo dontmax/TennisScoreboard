@@ -19,7 +19,7 @@ public class MatchScore {
         resetAll();
     }
 
-    private void resetAll(){
+    private void resetAll() {
         this.isTiebreak = false;
         this.firstPlayerPoints = 0;
         this.secondPlayerPoints = 0;
@@ -30,13 +30,13 @@ public class MatchScore {
     }
 
     public String getPointsView(int playerId) {
-        final int PLAYER_ONE=1;
+        final int PLAYER_ONE = 1;
         boolean isPlayer1 = playerId == PLAYER_ONE;
         int points = isPlayer1 ? firstPlayerPoints : secondPlayerPoints;
-        if(isTiebreak){
+        if (isTiebreak) {
             return Integer.toString(points);
         } else {
-            if(0<=points&&points<=4) {
+            if (0 <= points && points <= 4) {
                 return PointsView.values()[points].getValue();
             } else {
                 throw new RuntimeException("PointsView render error");
@@ -53,6 +53,7 @@ public class MatchScore {
         ADVANTAGE("AD");
 
         private final String value;
+
         PointsView(String value) {
             this.value = value;
         }

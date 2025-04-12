@@ -30,22 +30,22 @@ public class FinishedMatchesPersistenceService {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             firstPlayer = playerRepository.getByName(session, currentMatch.getFirstPlayer().getName())
-                    .orElseGet(()-> new Player (currentMatch.getFirstPlayer().getName()));
+                    .orElseGet(() -> new Player(currentMatch.getFirstPlayer().getName()));
             secondPlayer = playerRepository.getByName(session, currentMatch.getSecondPlayer().getName())
-                    .orElseGet(()-> new Player (currentMatch.getSecondPlayer().getName()));
-            if(firstPlayer.getId() ==null) {
+                    .orElseGet(() -> new Player(currentMatch.getSecondPlayer().getName()));
+            if (firstPlayer.getId() == null) {
                 playerRepository.save(session, firstPlayer);
             }
-            if(secondPlayer.getId() ==null) {
+            if (secondPlayer.getId() == null) {
                 playerRepository.save(session, secondPlayer);
             }
             matchRepository.save(
                     session,
                     new Match(
-                    firstPlayer,
-                    secondPlayer,
-                    (firstPlayer.getName().equals(currentMatch.getFirstPlayer().getName()))?firstPlayer:secondPlayer
-            ));
+                            firstPlayer,
+                            secondPlayer,
+                            (firstPlayer.getName().equals(currentMatch.getWinner().getName())) ? firstPlayer : secondPlayer
+                    ));
             transaction.commit();
         }
     }
