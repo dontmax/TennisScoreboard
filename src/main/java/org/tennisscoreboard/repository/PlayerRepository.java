@@ -24,9 +24,9 @@ public class PlayerRepository {
     public Optional<Player> getByName(Session session, String name) {
         Player player;
         try {
-            Query<Player> query = session.createQuery("from Player where name = :name", Player.class);
-            query.setParameter("name", name);
-            player = query.getSingleResult();
+            player = session.createQuery("from Player where name = :name", Player.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return Optional.empty();
         } catch (Exception e) {
