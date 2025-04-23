@@ -1,21 +1,22 @@
 plugins {
-    id 'java' // Ensure the Java plugin is applied
     id 'war'
+    id 'java' // Ensure the Java plugin is applied
+    id 'org.jetbrains.kotlin.jvm'
 }
 war {
-    archiveBaseName.set('ROOT')
+    archiveFileName = 'ROOT.war'
 }
 ext {
     junitVersion = '5.11.0'
 }
-
+tasks.named('jar') {
+    enabled = false
+}
 repositories {
     mavenCentral() // Add Maven Central repository
 }
 
 java {
-    sourceCompatibility = '21'
-    targetCompatibility = '21'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -45,9 +46,13 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.11.4'
 
     implementation group: 'org.assertj', name: 'assertj-assertions-generator-maven-plugin', version: '2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 }
 
 test {
     useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(21)
 }

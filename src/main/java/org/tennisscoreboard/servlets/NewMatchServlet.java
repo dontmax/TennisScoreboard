@@ -1,15 +1,12 @@
 package org.tennisscoreboard.servlets;
 
 import java.io.*;
-import java.util.UUID;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import org.tennisscoreboard.dto.PlayerDTO;
-import org.tennisscoreboard.models.CurrentMatch;
 import org.tennisscoreboard.service.CurrentMatchesService;
 import org.tennisscoreboard.service.ValidationService;
 
@@ -42,11 +39,7 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
         try {
-            PlayerDTO player1 = new PlayerDTO(1, firstPlayerName);
-            PlayerDTO player2 = new PlayerDTO(2, secondPlayerName);
-            String match_id = UUID.randomUUID().toString();
-            CurrentMatch currentMatch = new CurrentMatch(player1, player2);
-            currentMatchesService.add(match_id, currentMatch);
+            String match_id = currentMatchesService.add(firstPlayerName, secondPlayerName);
             response.sendRedirect("/match-score?uuid=" + match_id);
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
